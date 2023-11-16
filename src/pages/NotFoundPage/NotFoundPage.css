@@ -1,0 +1,35 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.return-btn{
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 30px;
+    background-color: #3b3bc7;
+    color: #fff;
+    padding: 12px 32px;
+    font-weight: bold;
+}
+
+.fof{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fof h1{
+	  font-size: 50px;
+	  display: inline-block;
+	  padding-right: 12px;
+	  animation: type .5s alternate infinite;
+}
+
+@keyframes type{
+	  from{box-shadow: inset -3px 0px 0px #888;}
+	  to{box-shadow: inset -3px 0px 0px transparent;}
+}
