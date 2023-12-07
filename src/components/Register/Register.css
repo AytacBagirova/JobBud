@@ -1,0 +1,10 @@
+.card-input-element {
+    display: none;
+}
+.userType-card:hover {
+    cursor: pointer;
+}
+
+.card-input-element:checked + .userType-card {
+     box-shadow: 0 0 1px 1px #2ecc71;
+}
