@@ -5,17 +5,17 @@ const Footer = () => {
     <footer class="py-1 bg-primary">
       <ul class="nav justify-content-center border-bottom pb-3 mb-3">
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-white">
+          <a href="/" class="nav-link px-2 text-white">
             Home
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-white">
+          <a href="/findjob" class="nav-link px-2 text-white">
             Find Job
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link px-2 text-white">
+          <a href="/findfreelancer" class="nav-link px-2 text-white">
             Find Freelancer
           </a>
         </li>
