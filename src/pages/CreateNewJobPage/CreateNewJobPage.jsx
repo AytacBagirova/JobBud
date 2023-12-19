@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CreateNewJobPage.css'; // Import your CSS file
 import Layout from '../../components/Layout/Layout';
+import UserLayout from '../../components/Layout/UserLayout';
 
 const CreateNewJobPage = () => {
   // create new job form
@@ -8,28 +9,18 @@ const CreateNewJobPage = () => {
   const [jobDescription, setJobDescription] = useState('');
   const [jobBudget, setJobBudget] = useState('');
 
-  const handleJobTitleChange = (event) => {
-    setJobTitle(event.target.value);
-  };
-  const handleJobDescriptionChange = (event) => {
-    setJobDescription(event.target.value);
-  };
-  const handleJobBudgetChange = (event) => {
-    setJobBudget(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleFormSent = () => {
+  
     console.log('Job Title: ', jobTitle);
     console.log('Job Description: ', jobDescription);
     console.log('Budget: ', jobBudget);
   };
 
   return (
-    <Layout>
-    <div className="job-form-container">
-      <h1>Create New Job Page</h1>
-      <form onSubmit={handleSubmit}>
+    <UserLayout>
+      <div className="job-form-container">
+        <h1>Create New Job Page</h1>
+
         <div className="form-group">
           <label htmlFor="jobTitle">Job Title</label>
           <input
@@ -37,7 +28,8 @@ const CreateNewJobPage = () => {
             id="jobTitle"
             name="jobTitle"
             value={jobTitle}
-            onChange={handleJobTitleChange}
+            onChange={(e) => setJobTitle(e.target.value)}
+            className="form-control"
           />
         </div>
         <div className="form-group">
@@ -47,7 +39,8 @@ const CreateNewJobPage = () => {
             id="jobDescription"
             name="jobDescription"
             value={jobDescription}
-            onChange={handleJobDescriptionChange}
+            onChange={(e) => setJobDescription(e.target.value)}
+            className="form-control"
           />
         </div>
         <div className="form-group">
@@ -57,13 +50,15 @@ const CreateNewJobPage = () => {
             id="jobBudget"
             name="jobBudget"
             value={jobBudget}
-            onChange={handleJobBudgetChange}
+            onChange={(e) => setJobBudget(e.target.value)}
+            className="form-control"
           />
         </div>
-        <button type="submit">Create New Job</button>
-      </form>
+        <div className="btn btn-success" onClick={handleFormSent}>
+          Create New Job
+        </div>
       </div>
-      </Layout>
+    </UserLayout>
   );
 };
 

@@ -1,1 +1,13 @@
 @import "bootstrap/scss/bootstrap";
+
+$teal-color:rgb(19, 132, 150);
+$dark-color:#34495e;
+
+
+.text-teal{
+  color: $teal-color !important;
+}
+
+.bg-primary{
+    background-color: $dark-color !important;
+}

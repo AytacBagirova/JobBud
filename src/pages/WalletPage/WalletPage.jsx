@@ -1,6 +1,7 @@
 import React from 'react';
-import './PaymentsPage.css';
+import './WalletPage.css';
 import Layout from '../../components/Layout/Layout';
+import UserLayout from '../../components/Layout/UserLayout';
 
 const paymentsData = [
   {
@@ -32,7 +33,7 @@ const PaymentsPage = () => {
   const totalBalance = totalIncoming - totalOutgoing;
 
   return (
-    <Layout>
+    <UserLayout>
         <h1>Payment History</h1>
       <div className="payments-container">
         {paymentsData.map((payment) => (
@@ -53,7 +54,7 @@ const PaymentsPage = () => {
           <p>Toplam Cüzdan Miktarı: {totalBalance}</p>
         </div>
       </div>
-    </Layout>
+    </UserLayout>
   );
 };
 

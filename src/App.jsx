@@ -12,12 +12,12 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import MyJobsPage from "./pages/MyJobs/MyJobsPage";
 import CreateNewJobPage from "./pages/CreateNewJobPage/CreateNewJobPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import PaymentsPage from "./pages/PaymentsPage/PaymentsPage";
+import PaymentsPage from "./pages/WalletPage/WalletPage";
 import JobDetailsPage from "./pages/JobDetailsPage/JobDetailsPage";
 function App() {
   return (
     <>
-      <Header/>
+
       <Routes>
         <Route index element={<HomePage />} />
         <Route path="register" element={<RegisterPage />} />
@@ -27,7 +27,7 @@ function App() {
         <Route path="findfreelancer" element={<FindFreelancersPage />} />
         <Route path="createjob" element={<CreateNewJobPage />} />
         <Route path="profile" element={<ProfilePage/>} />
-        <Route path="payments" element={<PaymentsPage/>} />
+        <Route path="wallet" element={<PaymentsPage/>} />
         <Route path="jobdetails" element={<JobDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

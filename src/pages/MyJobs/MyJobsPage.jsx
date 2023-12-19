@@ -1,5 +1,6 @@
 import Header from "../../components/Header/Header";
 import Layout from "../../components/Layout/Layout";
+import UserLayout from "../../components/Layout/UserLayout";
 
 function MyJobsPage() {
     
@@ -41,11 +42,11 @@ function MyJobsPage() {
 
   return (
     <>
-      <Layout>
+      <UserLayout>
         <h1>My Jobs</h1>
         {listJobs("Active Jobs", 5)}
         {listJobs("Pending Approval", 3)}
-      </Layout>
+      </UserLayout>
     </>
   );
 }

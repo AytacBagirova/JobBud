@@ -1,23 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Header() {
-  const [open, setOpen] = React.useState(false);
+const Header = () => {
+  const [open, setOpen] = useState(false);
 
   const currentUser = {
     username: "user1",
     email: "user@mail.com",
     password: "123",
-    isFreelancer: true,
+    isFreelancer: false,
     isLoggedIn: true,
   };
 
   return (
     <header className="hero-header">
       <nav
-        className="navbar navbar-expand-lg bg-primary border-bottom border-body"
+        className="navbar navbar-expand-lg bg-primary border-bottom"
         data-bs-theme="primary"
       >
         <div className="container-fluid">
@@ -32,18 +32,15 @@ function Header() {
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarScroll"
-            aria-controls="navbarScroll"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div
-            className="collapse navbar-collapse d-flex justify-content-end"
-            id="navbarScroll"
-          >
-            <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {currentUser.isFreelancer ? (
                 <li className="nav-item">
                   <a
@@ -66,40 +63,54 @@ function Header() {
                 </li>
               )}
             </ul>
-            <div className="profile" onClick={() => setOpen(!open)}>
-              {currentUser.isLoggedIn ? (
-                <li className="nav-item">
-                  <NavLink className="nav-link" style={{ color: "#ffffff" }}>
-                    User
-                  </NavLink>
-                  {open && (
-                    <div className="options">
-                      <Link to="/profile">Profile</Link>
-                      <hr />
-                      {!currentUser.isFreelancer ? (
-                        <>
-                          <Link to="/createjob">Create new job</Link>
-                          <hr />
-                          <Link to="/bids">My Bids</Link>
-                          <hr />
-                          <Link to="/approvejobs">Jobs awaiting approval</Link>
-                          <hr />
-                          <Link to="payments">My Payments </Link>
-                          <hr />
-                        </>
-                      ) : (
-                        <>
-                          <Link to="/myjobs">My Jobs</Link>
-                          <hr />
-                        </>
-                      )}
-                      <Link to="/">Logout</Link>
-                    </div>
-               
-                  )}
-                </li>
-              ) : (
-                <>
+
+            {currentUser.isLoggedIn ? (
+              <>
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href="/createjob"
+                      style={{ color: "#ffffff" }}
+                    >
+                      Add Job
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href="/myJobs"
+                      style={{ color: "#ffffff" }}
+                    >
+                      My Jobs
+                    </a>
+                  </li>
+                  <li className="nav-item profile">
+                    <NavLink
+                      className="nav-link"
+                      style={{ color: "#ffffff" }}
+                      onClick={() => setOpen(!open)}
+                    >
+                      User
+                    </NavLink>
+                    {open && (
+                      <div className="options">
+                        <div className="pendingAmount">Pending: 96TL</div>
+                        <div className="amount">Amount: 16TL</div>
+                        <hr />
+                        <a href="/profile">Edit Profile</a>
+                        <hr className="text-dark" />
+
+                        <a href="/">Logout</a>
+                      </div>
+                    )}
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <>
+                {" "}
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink
                       to="/login"
@@ -118,14 +129,14 @@ function Header() {
                       Register
                     </NavLink>
                   </li>
-                </>
-              )}
-            </div>
+                </ul>
+              </>
+            )}
           </div>
         </div>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

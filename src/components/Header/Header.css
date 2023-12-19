@@ -21,11 +21,11 @@
  .nav-item{
    display: flex;
  }
- .profile{
+/* .profile{
    position: relative;
    margin: 10px;
    cursor: pointer;
- }
+ }*/
  .options {
    position: absolute;
    width: 200px;
@@ -39,4 +39,10 @@
    flex-direction: column;
    color: gray;
    z-index: 1;
+ }
+
+ hr {
+   border: 0.5px solid black !important;
+   margin: 7px 0 !important;
+   opacity: 0.25;
  }
