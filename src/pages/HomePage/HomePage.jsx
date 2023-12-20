@@ -1,12 +1,14 @@
 import Header from "../../components/Header/Header";
+import Layout from "../../components/Layout/Layout";
 import "./HomePage.css";
 
 function HomePage() {
   return (
     <>
-      <Header />
-      <h1>HOMEPAGE</h1>
-    </>
+    <Layout>
+      <h1 className="mt-4">HOMEPAGE</h1>
+ </Layout>
+      </ >
   );
 }
 

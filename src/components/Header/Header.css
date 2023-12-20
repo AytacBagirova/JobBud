@@ -1,17 +1,42 @@
-.hero-nav{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   max-width: 1100px;
-   margin: 0 auto;
-   padding: 14px 0;
+*{
+   font-weight: 500;
 }
-
-.hero-nav-links{
+.hero-header {
+   align-items: center;
+ }
+ 
+ .navbar-nav {
    display: flex;
    gap: 20px;
-}
-
-.hero-nav-left{
-   display: inline-block; 
-}
+ }
+ 
+ .navbar-nav .nav-link {
+   display: inline-block;
+ } 
+ .user-info {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+ }
+ .nav-item{
+   display: flex;
+ }
+ .profile{
+   position: relative;
+   margin: 10px;
+   cursor: pointer;
+ }
+ .options {
+   position: absolute;
+   width: 200px;
+   top: 50px;
+   right: 0;
+   background-color: #fff;
+   border-radius: 5px;
+   padding: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   display: flex;
+   flex-direction: column;
+   color: gray;
+   z-index: 1;
+ }
