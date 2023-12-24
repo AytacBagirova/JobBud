@@ -1,17 +1,19 @@
 import React from "react";
 import UserHeader from "../Header/UserHeader";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 const SidebarMenu = () => {
 
   const currentUser = {
     username: "user1",
     email: "user@mail.com",
     password: "123",
-    isFreelancer: false,
-    isLoggedIn: true,
+    isFreelancer: true,
+    isLoggedIn: false,
   };
   return (
     <nav id="sidebar">
+
       <div class="sidebar-header">
         <h3>JobBud</h3>
       </div>
@@ -55,11 +57,11 @@ const SidebarMenu = () => {
               </a>
               <ul class="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
-                  <a href="#">Add New One</a>
+                <Link to="/findmicrojobs">Find Micro Jobs</Link>
                 </li>
 
                 <li>
-                  <a href="#">My micro jobs</a>
+                  <a href="/mymicrojobs">My micro jobs</a>
                 </li>
               </ul>
             </li>
@@ -98,21 +100,25 @@ const SidebarMenu = () => {
               </a>
               <ul class="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
-                  <a href="#">Add New One</a>
+                  <a href="#">Add Micro Job</a>
                 </li>
 
                 <li>
-                  <a href="#">My micro jobs</a>
+                  <a href="#">My Micro Jobs</a>
                 </li>
               </ul>
             </li>{" "}
           </div>
         )}{" "}
         <li>
-          <a href="#">Logout</a>
+          <a href="#">{currentUser.isLoggedIn ? "Logout" : "Login"}</a>
         </li>
       </ul>
+    {
+      currentUser.isFreelancer && <h1> Freelancer</h1>
+    }
     </nav>
+
   );
 };
 

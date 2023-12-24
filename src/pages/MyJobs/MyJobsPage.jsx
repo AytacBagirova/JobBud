@@ -46,6 +46,7 @@ function MyJobsPage() {
         <h1>My Jobs</h1>
         {listJobs("Active Jobs", 5)}
         {listJobs("Pending Approval", 3)}
+        {listJobs("Completed", 7)}
       </UserLayout>
     </>
   );

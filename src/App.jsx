@@ -14,6 +14,8 @@ import CreateNewJobPage from "./pages/CreateNewJobPage/CreateNewJobPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PaymentsPage from "./pages/WalletPage/WalletPage";
 import JobDetailsPage from "./pages/JobDetailsPage/JobDetailsPage";
+import FindMicroJobPage from "./pages/FindMicroJobPage/FindMicroJobPage";
+
 function App() {
   return (
     <>
@@ -29,6 +31,7 @@ function App() {
         <Route path="profile" element={<ProfilePage/>} />
         <Route path="wallet" element={<PaymentsPage/>} />
         <Route path="jobdetails" element={<JobDetailsPage />} />
+        <Route path="findmicrojobs" element={<FindMicroJobPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer/>
