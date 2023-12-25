@@ -1,29 +1,35 @@
 import React from "react";
 import UserHeader from "../Header/UserHeader";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions/UserAction";
 const SidebarMenu = () => {
+  const user = useSelector((state) => state.userLogin);
+  let currentUser = null;
+  if (user)
+    currentUser = {
+      ...user.userInfo,
+    };
+  const history = useNavigate();
+   const dispatch = useDispatch();
+   const logoutHandler = () => {
+     dispatch(logout());
+     history("/")
 
-  const currentUser = {
-    username: "user1",
-    email: "user@mail.com",
-    password: "123",
-    isFreelancer: true,
-    isLoggedIn: false,
-  };
+   };
   return (
     <nav id="sidebar">
-
       <div class="sidebar-header">
         <h3>JobBud</h3>
       </div>
 
       <ul class="list-unstyled components">
-              <p>Welcome  {currentUser.isFreelancer ? ("Freelancer"): ("Customer")},</p>
+        <p>Welcome {currentUser.userType},</p>
         <li>
           <a href="/profile">Profile</a>
         </li>
-        {currentUser.isFreelancer ? (
+        {currentUser.userType == "FREELANCER" ? (
           <div>
             {" "}
             <li class="active">
@@ -57,7 +63,7 @@ const SidebarMenu = () => {
               </a>
               <ul class="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
-                <Link to="/findmicrojobs">Find Micro Jobs</Link>
+                  <Link to="/findmicrojobs">Find Micro Jobs</Link>
                 </li>
 
                 <li>
@@ -100,7 +106,7 @@ const SidebarMenu = () => {
               </a>
               <ul class="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
-                  <a href="#">Add Micro Job</a>
+                  <a href="/microtransaction/create">Add Micro Job</a>
                 </li>
 
                 <li>
@@ -111,14 +117,13 @@ const SidebarMenu = () => {
           </div>
         )}{" "}
         <li>
-          <a href="#">{currentUser.isLoggedIn ? "Logout" : "Login"}</a>
+          <a href="#" onClick={logoutHandler}>
+            Logout
+          </a>
         </li>
       </ul>
-    {
-      currentUser.isFreelancer && <h1> Freelancer</h1>
-    }
+      <label className="mx-4 fs-4">{currentUser.userType}</label>
     </nav>
-
   );
 };
 
@@ -129,6 +134,7 @@ export default SidebarMenu;
 Job List
     -job adding
     - My jobs - added by customer- (completed jobs could be seem in same place)
+ -view offers
 micro transaction list
     -micro transaction adding
     -my micro transactions - added by customer- (completed micro jobs could be seem in same place)
