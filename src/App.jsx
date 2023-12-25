@@ -1,5 +1,5 @@
 import "./App.scss";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import HomePage from "./pages/HomePage/HomePage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
@@ -15,27 +15,31 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import PaymentsPage from "./pages/WalletPage/WalletPage";
 import JobDetailsPage from "./pages/JobDetailsPage/JobDetailsPage";
 import FindMicroJobPage from "./pages/FindMicroJobPage/FindMicroJobPage";
+import CreateNewMicroTransaction from "./pages/CreateNewMicroTransactionPage/CreateNewMicroTransactionPage";
 
 function App() {
   return (
-    <>
-
-      <Routes>
-        <Route index element={<HomePage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="findjob" element={<FindWorkPage />} />
-        <Route path="myJobs" element={<MyJobsPage/>} />
-        <Route path="findfreelancer" element={<FindFreelancersPage />} />
-        <Route path="createjob" element={<CreateNewJobPage />} />
-        <Route path="profile" element={<ProfilePage/>} />
-        <Route path="wallet" element={<PaymentsPage/>} />
-        <Route path="jobdetails" element={<JobDetailsPage />} />
-        <Route path="findmicrojobs" element={<FindMicroJobPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <Footer/>
-    </>
+    <BrowserRouter>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path="register" element={<RegisterPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="findjob" element={<FindWorkPage />} />
+          <Route path="myJobs" element={<MyJobsPage />} />
+          <Route path="findfreelancer" element={<FindFreelancersPage />} />
+          <Route path="createjob" element={<CreateNewJobPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="wallet" element={<PaymentsPage />} />
+          <Route path="jobdetails" element={<JobDetailsPage />} />
+          <Route path="findmicrojobs" element={<FindMicroJobPage />} />
+          <Route
+            path="/microtransaction/create"
+            element={<CreateNewMicroTransaction />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <Footer />
+    </BrowserRouter>
   );
 }
 

@@ -2,17 +2,16 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import "./Header.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
-
-  const currentUser = {
-    username: "user1",
-    email: "user@mail.com",
-    password: "123",
-    isFreelancer: false,
-    isLoggedIn: true,
-  };
+  const user = useSelector((state) => state.userLogin);
+  let currentUser = null;
+  if (user.userInfo)
+    currentUser = {
+      ...user.userInfo,
+    };
 
   return (
     <header className="hero-header">
@@ -41,7 +40,7 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {currentUser.isFreelancer ? (
+              {currentUser ? (
                 <li className="nav-item">
                   <a
                     className="nav-link"
@@ -64,7 +63,7 @@ const Header = () => {
               )}
             </ul>
 
-            {currentUser.isLoggedIn ? (
+            {currentUser ? (
               <>
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
@@ -110,7 +109,7 @@ const Header = () => {
             ) : (
               <>
                 {" "}
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
                     <NavLink
                       to="/login"
