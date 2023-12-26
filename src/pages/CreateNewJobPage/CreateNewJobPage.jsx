@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import './CreateNewJobPage.css'; // Import your CSS file
 import UserLayout from '../../components/Layout/UserLayout';
-import { useDispatch } from 'react-redux';
-import { createJob } from '../../redux/actions/JobActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { createJob } from '../../redux/actions/JobAction';
 
 const CreateNewJobPage = () => {
-  // create new job form
   const [jobTitle, setJobTitle] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [jobBudget, setJobBudget] = useState(1);

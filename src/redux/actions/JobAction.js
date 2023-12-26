@@ -1,5 +1,5 @@
 import * as types from "../../constants/JobConstants";
-import { postWithAuth } from "../../api/apiCalls";
+import { getWithAuth, postWithAuth } from "../../api/apiCalls";
 
 export const createJobRequest = () => ({
   type: types.CREATE_JOB_REQUEST,
@@ -38,3 +38,27 @@ export const createJob = (jobData) => async (dispatch,getState) => {
     dispatch(createJobFailure(error.message));
   }
 };
+
+export const getJobs= (searchQuery) => async (dispatch) => {
+  try {
+    dispatch({
+      type: types.JOB_LIST_REQUEST,
+    });
+
+    const response = await getWithAuth('/api/v1.0/jobs/search',{query:searchQuery});
+    const data = response.data;
+    dispatch({
+      type: types.JOB_LIST_SUCCESS,
+      payload: [ ...data],
+    });
+  } catch (error) {
+    dispatch({
+      type: types.JOB_LIST_FAILURE,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+
+
