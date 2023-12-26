@@ -1,5 +1,3 @@
-
-import React from 'react';
 import './ProfilePage.css';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,10 +25,8 @@ const ProfilePage = () => {
           <div className="profile-info">
             <h3 className='text-center'>Edit Your Profile</h3>
             <div className="profile-description">
-            <h3>{userInfo ? userInfo.username : 'Guest'}</h3>
-              <p>
-                Freelancer with 10 years of experience in mobile development
-              </p>
+              <h3>{userInfo?.username || 'Guest'}</h3>
+              <p>Freelancer with 10 years of experience in mobile development</p>
             </div>
             <label>Username</label>
             <input
@@ -52,6 +48,6 @@ const ProfilePage = () => {
       </div>
     </UserLayout>
   );
-}
+};
 
 export default ProfilePage;

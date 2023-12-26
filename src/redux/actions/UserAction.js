@@ -24,29 +24,29 @@ export const login = (username, password) => async (dispatch) => {
       password: password,
     });
     const data = response.data;
+    const { userId, accessToken, refreshToken, userType, email } = data;
     const body = {
-      id: data.userId,
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-      userType: data.userType,
-      email: data.email,
-      username: data.username,
+      id: userId,
+      accessToken,
+      refreshToken,
+      userType,
+      email,
+      username,
     };
     dispatch({
       type: USER_LOGIN_SUCCESS,
-      payload: {
-        ...body,
-      },
+      payload: body,
     });
 
-    localStorage.setItem("userInfo", JSON.stringify(body));
+    
+
+    
+
+    localStorage.setItem('userInfo', JSON.stringify(body));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response?.data?.message ?? error.message,
     });
   }
 };

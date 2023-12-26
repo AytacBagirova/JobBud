@@ -1,16 +1,16 @@
-import axios from "axios";
-const localUser = JSON.parse(localStorage.getItem("userInfo"));
+import axios from 'axios';
+const localUser = JSON.parse(localStorage.getItem('userInfo'));
 let token;
 if (localUser) {
   token = localUser.accessToken;
 }
- 
+
 export const postWithAuth = async (url, body) => {
-  console.log("🚀 ~ file: apiCalls.js:4 ~ token:", token);
+  console.log('🚀 ~ file: apiCalls.js:4 ~ token:', token);
 
   return await axios.post(url, body, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: token,
     },
   });
@@ -22,17 +22,16 @@ export const postWithoutAuth = async (url, body) => {
 export const putWithAuth = async (url, body) => {
   return await axios.put(url, body, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: token,
     },
   });
 };
-export const getWithAuth = async (url, param = {}, state) => {
-  
+export const getWithAuth = async (url, param = {}) => {
   return await axios.get(url, {
     param,
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: token,
     },
   });
@@ -43,8 +42,8 @@ export const getWithoutAuth = async (url, param = {}) => {
 export const deleteWithAuth = async (url) => {
   return await axios.delete(url, {
     headers: {
-      "Content-Type": "application/json",
-      Authorization:token,
+      'Content-Type': 'application/json',
+      Authorization: token,
     },
   });
 };

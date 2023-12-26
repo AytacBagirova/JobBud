@@ -54,10 +54,6 @@ const MyJobsPage = () => {
   const JobTabs = ({ sections }) => {
     const [activeTab, setActiveTab] = useState(0); // Aktif sekmenin indeksi
 
-    const changeTab = (index) => {
-      setActiveTab(index);
-    };
-
     return (
       <div>
         <div className="row my-4 justify-content-center">
@@ -73,7 +69,6 @@ const MyJobsPage = () => {
             </button>
           ))}
         </div>
-
         {sections.map((section, index) => (
           <div
             key={index}
@@ -88,12 +83,10 @@ const MyJobsPage = () => {
   };
 
   return (
-    <>
-      <UserLayout>
-        <h1>My Jobs</h1>
-        <JobTabs sections={sections} />
-      </UserLayout>
-    </>
+    <UserLayout>
+      <h1>My Jobs</h1>
+      <JobTabs sections={sections} />
+    </UserLayout>
   );
 };
 

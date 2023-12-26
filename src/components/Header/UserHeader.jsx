@@ -8,7 +8,7 @@ const UserHeader = () => {
           type="button"
           id="sidebarCollapse"
           className=" text-light rounded"
-          style={{ backgroundColor: "#138496" }}
+          style={{ backgroundColor: '#138496' }}
         >
           <i className="fas fa-align-left"></i>
           <span>Toggle Sidebar</span>
@@ -43,6 +43,5 @@ const UserHeader = () => {
     </nav>
   );
 };
-
 
 export default UserHeader;

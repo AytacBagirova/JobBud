@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import UserLayout from "../../components/Layout/UserLayout";
-import { ytApiCodeProcess } from "../../redux/actions/YtApiCodeAction";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import UserLayout from '../../components/Layout/UserLayout';
+import { ytApiCodeProcess } from '../../redux/actions/YtApiCodeAction';
 
 const ProcessYtApiCode = () => {
   const [queryParameters] = useSearchParams();

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Layout from "../../components/Layout/Layout";
+import { useState } from 'react';
 import UserLayout from '../../components/Layout/UserLayout';
 
 function JobDetailsPage() {
@@ -16,9 +15,7 @@ function JobDetailsPage() {
   };
 
 
-
-  const handleSubmit = () => {
-  };
+  const handleSubmit = () => {};
 
   return (
     <UserLayout>
@@ -32,6 +29,7 @@ function JobDetailsPage() {
             </div>
           <div className="form-group"> <textarea
               className="form-control"
+              placeholder="Job goes here."
               value={editedJob}
               onChange={handleEditChange}
             />

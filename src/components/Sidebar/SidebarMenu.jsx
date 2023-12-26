@@ -1,24 +1,19 @@
-import React from "react";
-import UserHeader from "../Header/UserHeader";
-import "./Sidebar.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/actions/UserAction";
+import { useMemo } from 'react';
+import './Sidebar.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/actions/UserAction';
 
 const SidebarMenu = () => {
   const user = useSelector((state) => state.userLogin);
-  let currentUser = null;
-  if (user) {
-    currentUser = {
-      ...user.userInfo,
-    };
-  }
+  const currentUser = useMemo(() => user.userInfo ?? null, [user]);
+
   const history = useNavigate();
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
     dispatch(logout());
-    history("/");
+    history('/');
   };
 
   return (
@@ -28,12 +23,12 @@ const SidebarMenu = () => {
       </div>
 
       <ul className="list-unstyled components">
-        <p>Welcome {currentUser.username}</p>
+        <p>Welcome {currentUser?.username}</p>
 
         <li>
           <a href="/profile">Profile</a>
         </li>
-        {currentUser.userType === "FREELANCER" ? (
+        {currentUser?.userType === 'FREELANCER' ? (
           <>
             <li className="active">
               <a
@@ -147,7 +142,7 @@ const SidebarMenu = () => {
           </a>
         </li>
       </ul>
-      <label className="mx-4 fs-4">{currentUser.userType}</label>
+      <label className="mx-4 fs-4">{currentUser?.userType}</label>
     </nav>
   );
 };

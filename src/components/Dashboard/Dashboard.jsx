@@ -1,5 +1,5 @@
-import UserLayout from "../Layout/UserLayout";
-import "./Dashboard.css";
+import UserLayout from '../Layout/UserLayout';
+import './Dashboard.css';
 
 function Dashboard() {
   return (

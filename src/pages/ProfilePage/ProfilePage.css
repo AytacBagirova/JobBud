@@ -1,58 +1,54 @@
 /* ProfilePage.css */
 
 .profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .profile-card {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .profile-info {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .profile-description {
-    margin-bottom: 10px;
-  }
-  
-  .profile-wallet {
-    align-self: flex-end;
-  }
-  
-  .profile-active-jobs {
-    margin-top: 20px;
-  }
-  
-  .profile-active-job {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .cancel-button {
-    background-color: #ff6347;
-    color: #fff;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  
-  body {
-    font-family: 'Arial', sans-serif;
-  }
+.profile-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
-  
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.profile-description {
+  margin-bottom: 10px;
+}
+
+.profile-wallet {
+  align-self: flex-end;
+}
+
+.profile-active-jobs {
+  margin-top: 20px;
+}
+
+.profile-active-job {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button {
+  background-color: #ff6347;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}

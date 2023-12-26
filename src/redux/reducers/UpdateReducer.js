@@ -2,8 +2,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-} from "../../constants/UpdateConstants";
-
+} from '../../constants/UpdateConstants';
 
 export const UpdateReducer = (state = {}, action) => {
   switch (action.type) {

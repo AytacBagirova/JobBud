@@ -1,12 +1,11 @@
-import React from "react";
-import UserLayout from "../../components/Layout/UserLayout";
+import UserLayout from '../../components/Layout/UserLayout';
 
 const OfferHistoryPage = () => {
   // Örnek teklif geçmişi verisi
   const offerHistoryData = [
-    { id: 1, offerName: "İlk Teklif", date: "2023-01-01" },
-    { id: 2, offerName: "İkinci Teklif", date: "2023-02-15" },
-    { id: 3, offerName: "Üçüncü Teklif", date: "2023-03-22" },
+    { id: 1, offerName: 'İlk Teklif', date: '2023-01-01' },
+    { id: 2, offerName: 'İkinci Teklif', date: '2023-02-15' },
+    { id: 3, offerName: 'Üçüncü Teklif', date: '2023-03-22' },
     // Daha fazla örnek teklif geçmişi verisi...
   ];
 
@@ -37,5 +36,3 @@ const OfferHistoryPage = () => {
 };
 
 export default OfferHistoryPage;
-
-
