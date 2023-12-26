@@ -27,17 +27,17 @@ export const putWithAuth = async (url, body) => {
     },
   });
 };
-export const getWithAuth = async (url, param = {}) => {
+export const getWithAuth = async (url, params = {}) => {
   return await axios.get(url, {
-    param,
+    params,
     headers: {
       'Content-Type': 'application/json',
       Authorization: token,
     },
   });
 };
-export const getWithoutAuth = async (url, param = {}) => {
-  return await axios.get(url, param);
+export const getWithoutAuth = async (url, params = {}) => {
+  return await axios.get(url, params);
 };
 export const deleteWithAuth = async (url) => {
   return await axios.delete(url, {

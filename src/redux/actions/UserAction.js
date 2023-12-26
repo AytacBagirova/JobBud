@@ -38,9 +38,6 @@ export const login = (username, password) => async (dispatch) => {
       payload: body,
     });
 
-    
-
-    
 
     localStorage.setItem('userInfo', JSON.stringify(body));
   } catch (error) {

@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import UserLayout from '../../components/Layout/UserLayout';
-import { ytApiCodeProcess } from '../../redux/actions/YtApiCodeAction';
+import { findChannelId } from '../../redux/actions/YtApiCodeAction';
 
 const ProcessYtApiCode = () => {
+  
   const [queryParameters] = useSearchParams();
   const [code, setCode] = useState(queryParameters.get("code"));
   const apiCodeRequest = useSelector((state) => state.ytApiCode);
@@ -14,7 +15,8 @@ const ProcessYtApiCode = () => {
 
   useEffect(() => {
     setCode(queryParameters.get("code"));
-    dispatch(ytApiCodeProcess(code));
+
+    dispatch(findChannelId(code));
   }, []);
 
   return (

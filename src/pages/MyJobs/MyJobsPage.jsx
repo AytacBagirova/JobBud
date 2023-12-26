@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import UserLayout from "../../components/Layout/UserLayout";
 
 const MyJobsPage = () => {
+ 
   const InstanceOfJob = (title, description, budget) => {
+  
     return (
       <div className="card mb-3">
         <div className="card-body d-flex justify-content-between">
@@ -52,8 +54,11 @@ const MyJobsPage = () => {
   ];
 
   const JobTabs = ({ sections }) => {
-    const [activeTab, setActiveTab] = useState(0); // Aktif sekmenin indeksi
 
+    const [activeTab, setActiveTab] = useState(0); // Aktif sekmenin indeksi
+ const changeTab = (index) => {
+    setActiveTab(index)
+  }
     return (
       <div>
         <div className="row my-4 justify-content-center">

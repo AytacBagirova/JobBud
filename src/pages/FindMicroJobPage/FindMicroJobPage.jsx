@@ -1,46 +1,39 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import UserLayout from '../../components/Layout/UserLayout';
+import MicroJobCard from '../../components/MicroJobCard/MicroJobCard';
+import { getMicroTransactions } from '../../redux/actions/MicroTransactionAction';
 
-// component
-const JobCard = () => (
-  <div className="card w-100 mb-3">
-    <div className="card-body d-flex justify-content-between">
-      <div>
-        <h5 className="card-title">Subscribe to my YouTube Channel</h5>
-        <p className="card-text">
-          Click the button below to subscribe and stay updated with my content.
-        </p>
-      </div>
-      <div className="text-end">
-        {/* Assume your YouTube channel name is "MyChannel" */}
-        <span className="badge bg-success">2$</span>
-      </div>
-    </div>
-    <div className="card-footer">
-      <a
-        href="https://www.youtube.com/mychannel" // Replace with your actual channel URL
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn btn-primary"
-      >
-        Subscribe
-      </a>
-    </div>
-  </div>
-);
+const FindMicroJobPage = () => {
+   const microTransactionList = useSelector((state) => state.microTransactionList)
+  const { loading, error, microtransactions } = microTransactionList
 
-function FindMicroJobPage() {
-  const listJobs = () => {
-    let list = [];
-    for (let i = 0; i < 5; i++) list.push(<li key={i}>{<JobCard />}</li>);
-    return list;
-  };
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getMicroTransactions())
+  }, [])
 
   return (
     <UserLayout>
       <h1>FIND MICRO JOB</h1>
-      {listJobs()}
+      {loading ? (
+        <div className="alert alert-warning my-2" role="alert">
+          Please Wait. Trying to Reach Micro Transactions...
+        </div>
+      ) : error ? (
+        <div className="alert alert-danger my-2" role="alert">
+          We couldn't reach micro transactions. Please try again later.
+        </div>
+      ) : 
+(microtransactions && 
+            microtransactions.map((microTransaction) => (
+              <MicroJobCard jobData={microTransaction} />
+            )))
+        
+      }
     </UserLayout>
   );
-}
+};
 
 export default FindMicroJobPage;

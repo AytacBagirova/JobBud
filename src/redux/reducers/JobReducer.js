@@ -17,3 +17,20 @@ export const jobCreateReducer = (state = {}, action) => {
   }
 };
 
+
+export const jobListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.JOB_LIST_REQUEST:
+      return {  loading: true };
+
+    case types.JOB_LIST_SUCCESS:
+      return { loading: false, jobs:action.payload };
+
+    case types.JOB_LIST_FAILURE:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+

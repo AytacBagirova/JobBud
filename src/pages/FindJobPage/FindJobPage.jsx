@@ -1,100 +1,95 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './FindJobPage.css';
 import UserLayout from '../../components/Layout/UserLayout';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJobs } from '../../redux/actions/JobAction';
 
 // component
-const JobCard = () => (
+const JobCard = ({ jobData }) => (
   <div className="card w-100 mb-3">
     <div className="card-body d-flex justify-content-between">
       <div>
-        <h5 className="card-title">
-          I need someone to be able to develop website similar of freelancer or fiverr.
-        </h5>
-        <p className="card-text">We can deal over price. If you have an offer please let me know</p>
+        <h5 className="card-title">{jobData.label}</h5>
+        <p className="card-text">{jobData.description}</p>
       </div>
       <div className="text-end">
         <span className="badge bg-success">
           Budget
-          <br /> 500 TL
+          <br /> {jobData.budget} TL
         </span>
       </div>
     </div>
     <div className="card-footer">
-      <a href="#" className="btn btn-primary">
-        Make Offer
-      </a>
+      <div className="row">
+        <div className="col-6">
+          <a href="#" className="btn btn-primary">
+            Make Offer
+          </a>
+        </div>
+        <div className="col-6">
+          Owner Username: {jobData.ownerUsername}
+        </div>
+      </div>
     </div>
   </div>
 );
 
 function FindJobPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useDispatch();
+  const filteredJobs = useSelector((state) => state.jobList);
+  const { jobs, loading, error } = filteredJobs;
 
-  const instanceOfJob = () => {
-    return (
-      <div class="card w-100 mb-3">
-        <div class="card-body d-flex justify-content-between">
-          <div>
-            <h5 class="card-title">
-              I need someone to be able to develop website similar of freelancer
-              or fiverr.
-            </h5>
-            <p class="card-text">
-              We can deal over price. If you have an offer please let me know
-            </p>
-          </div>
-          <div class="text-end">
-            <span class="badge bg-success">
-              Budget
-              <br /> 500 TL
-            </span>
-          </div>
-        </div>
-        <div class="card-footer">
-          
-          <div className="row">
-
-            <div className="col-6">
-              {" "}
-              <a href="#" class="btn btn-primary">
-                Make Offer
-              </a>
-            </div>{" "}
-            <div className="col-6 ">
-              {" "}
-             
-             Owner Username
-              
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  const handleSearchButton = () => {
+    dispatch(getJobs(searchQuery));
   };
 
-  const listJobs = () => {
-    let list = [];
-    for (let i = 0; i < 5; i++) list.push(<li key={i}>{<JobCard />}</li>);
-    return list;
-  };
+   useEffect(() => {
 
-  // eslint-disable-next-line no-unused-vars
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const filteredJobs = () =>
-    listJobs().filter((job) =>
-      job.props.children[0].props.children[0].props.children
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
+    dispatch(getJobs(''));
+  }, [])
+  
+ const listJobs = () => {
+  return jobs && jobs.length > 0 ? (
+    jobs.map((job) => <JobCard key={job.id} jobData={job} />)
+  ) : (
+    <p>We couldn't find any job about your search</p>
+  );
+};
 
   return (
     <UserLayout>
       <h1>FIND JOB</h1>
-      {listJobs()}
+      <div className="d-flex justify-content-center mx-auto">
+        <div className="col-12 my-5">
+          <div className="row">
+            <div className="col-9">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search Job "
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className="col-3">
+              <div
+                className="btn btn-outline-teal w-auto"
+                onClick={handleSearchButton}
+              >
+                Search It 🔎
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {error ? (
+        <div className="alert alert-danger">{error}</div>
+      ) : loading ? (
+        <div className="alert alert-primary">Loading...</div>
+      ) : (
+        listJobs()
+      )}
     </UserLayout>
   );
 }

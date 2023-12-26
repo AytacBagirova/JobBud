@@ -2,6 +2,9 @@ import React from "react";
 import "./WalletPage.css";
 import Layout from "../../components/Layout/Layout";
 import UserLayout from "../../components/Layout/UserLayout";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { walletGetBalance } from "../../redux/actions/WalletAction";
 const paymentsData = [
   {
     id: 1,
@@ -27,19 +30,21 @@ const paymentsData = [
 ];
 
 const PaymentsPage = () => {
-  const totalIncoming = paymentsData.reduce(
-    (total, payment) => total + payment.incomingAmount,
-    0
-  );
-  const totalOutgoing = paymentsData.reduce(
-    (total, payment) => total + payment.outgoingAmount,
-    0
-  );
-  const totalBalance = totalIncoming - totalOutgoing;
+  const walletState = useSelector(state => state.walletDetails)
+  const {error,loading,wallet}=walletState
 
+const pendingAmountTotal = wallet && wallet.pendingAmounts
+  ? wallet.pendingAmounts.reduce((total, item) => total + (item.amount || 0), 0)
+  : 0;
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+dispatch(walletGetBalance())
+  }, [])
   return (
     <UserLayout>
-      <h1>Payment History</h1>
+      <h1 className="my-4">Payment History</h1>
       <div class="row justify-content-center">
         <div class="col-md-4">
           <div class="card bg-success text-light" style={{ height: 120 }}>
@@ -48,11 +53,16 @@ const PaymentsPage = () => {
                 <span class="mini-stat-icon bg-brown me-0 float-end">
                   <i class="fa-solid fa-user"></i>
                 </span>
-                <div>
+               {error ? (
+                  <div className="alert alert-danger my-2" role="alert">
+                    {error}
+                  </div>
+                ) : loading ? "Balance details loading please wait." : ( <div>
                   <label class="fs-4">Total Balance </label>
 
-                  <span class="fw-bold">1000.00 TL</span>
-                </div>
+                  <span class="fw-bold">{wallet && wallet.balance} TL</span>
+                </div>)}
+               
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -65,11 +75,15 @@ const PaymentsPage = () => {
                 <span class="mini-stat-icon bg-brown me-0 float-end">
                   <i class="fa-solid fa-user"></i>
                 </span>
-                <div>
+                {error ? (
+                  <div className="alert alert-danger my-2" role="alert">
+                    {error}
+                  </div>
+                ) : loading ? "Balance details loading please wait." : (<div>
                   <label class="fs-4">Pending Amount </label>
 
-                  <span class="fw-bold">1000.00 TL</span>
-                </div>
+                  <span class="fw-bold">{pendingAmountTotal} TL</span>
+                </div>)}
                 <div class="clearfix"></div>
               </div>
             </div>
