@@ -1,5 +1,3 @@
-import React from 'react';
-import UserHeader from '../Header/UserHeader';
 import './Sidebar.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +25,7 @@ const SidebarMenu = () => {
         <h3>JobBud</h3>
       </div>
 
-      <ul class="list-unstyled components">
+      <ul className="list-unstyled components">
         <p>Welcome {currentUser.username}</p>
 
         <li>

@@ -20,7 +20,7 @@ export const login = (username, password) => async (dispatch) => {
       password,
     });
 
-    const { userId, accessToken, refreshToken, userType, email, username } = data;
+    const { userId, accessToken, refreshToken, userType, email } = data;
 
     const body = {
       id: userId,
