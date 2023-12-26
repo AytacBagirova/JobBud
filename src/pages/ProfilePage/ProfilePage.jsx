@@ -3,8 +3,8 @@ import React from 'react';
 import './ProfilePage.css';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../redux/actions/UpdateAction';
 import { useState } from 'react';
+import { updateUser } from '../../redux/actions/UserAction';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userLogin.userInfo);
@@ -25,6 +25,7 @@ const ProfilePage = () => {
       <div>
         <div className="profile-card">
           <div className="profile-info">
+            <h3 className='text-center'>Edit Your Profile</h3>
             <div className="profile-description">
             <h3>{userInfo ? userInfo.username : 'Guest'}</h3>
               <p>
@@ -45,7 +46,7 @@ const ProfilePage = () => {
               value={newEmail}
               onChange={(e) => setNewEmail(e.target.value)}
             />
-            <div className='btn btn-success' onClick={handleUpdate}>Update</div>
+            <div className='btn btn-success mt-3' onClick={handleUpdate}>Update</div>
           </div>
         </div>
       </div>

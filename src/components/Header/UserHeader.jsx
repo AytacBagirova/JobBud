@@ -29,12 +29,12 @@ const UserHeader = () => {
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
               <a className="nav-link fw-bold border rounded" href="/wallet">
-                Wallet
+                Wallet 💰
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link fw-bold border rounded" href="/profile">
-                User
+                User 🙋🏻‍♂️
               </a>
             </li>
           </ul>

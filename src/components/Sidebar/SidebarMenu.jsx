@@ -27,8 +27,7 @@ const SidebarMenu = () => {
         <h3>JobBud</h3>
       </div>
 
-
-      <ul class="list-unstyled components">
+      <ul className="list-unstyled components">
         <p>Welcome {currentUser.username}</p>
 
         <li>
@@ -65,7 +64,10 @@ const SidebarMenu = () => {
               >
                 Micro Transactions
               </a>
-              <ul className="collapse list-unstyled" id="microtransactionSubMenu">
+              <ul
+                className="collapse list-unstyled"
+                id="microtransactionSubMenu"
+              >
                 <li>
                   <Link to="/findmicrojobs">Find Micro Jobs</Link>
                 </li>
@@ -107,11 +109,14 @@ const SidebarMenu = () => {
               >
                 Micro Transactions
               </a>
-              <ul className="collapse list-unstyled" id="microtransactionSubMenu">
+              <ul
+                className="collapse list-unstyled"
+                id="microtransactionSubMenu"
+              >
                 <li>
                   <a href="/microtransaction/create">Add Micro Job</a>
                 </li>
-                
+
                 <li>
                   <a href="#">My Micro Jobs</a>
                 </li>
@@ -132,7 +137,7 @@ const SidebarMenu = () => {
           </a>
           <ul className="collapse list-unstyled" id="offersSubMenu">
             <li>
-              <a href="offerhistorypage">Offer History</a>
+              <a href="/offerhistory">Offer History</a>
             </li>
           </ul>
         </li>
@@ -148,7 +153,6 @@ const SidebarMenu = () => {
 };
 
 export default SidebarMenu;
-
 
 /* Pages&Components should exist for customer
 

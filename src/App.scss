@@ -7,7 +7,18 @@ $dark-color:#34495e;
 .text-teal{
   color: $teal-color !important;
 }
+.bg-teal{
+  background-color: $teal-color !important;
+}
 
+.btn-outline-teal{
+      color: $teal-color !important;
+      border:$teal-color solid !important;
+}
+.btn-outline-teal:hover{
+      background-color: $teal-color !important;
+     color:white !important;
+}
 .bg-primary{
     background-color: $dark-color !important;
 }

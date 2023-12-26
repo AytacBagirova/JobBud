@@ -16,10 +16,18 @@ const OfferHistoryPage = () => {
         <h1>Offer History</h1>
         <div className="offer-cards">
           {offerHistoryData.map((offer) => (
-            <div className="offer-card" key={offer.id}>
-              <h2>{offer.offerName}</h2>
-              <p>Date: {offer.date}</p>
-              {/* Diğer teklif detayları */}
+            <div className="card m-3" key={offer.id}>
+              <div className="card-body">
+                <div className="card-content">
+                  <h4>{offer.offerName}</h4>
+                  <p>Date: {offer.date}</p>
+                </div>
+                <div className="card-action">
+                  <div className="btn btn-outline-primary">
+                    Go to Job Detail
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>

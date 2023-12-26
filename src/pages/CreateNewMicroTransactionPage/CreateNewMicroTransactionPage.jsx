@@ -10,12 +10,14 @@ const CreateNewMicroTransaction = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [jobBudget, setJobBudget] = useState(0);
   const [microJobQuota, setMicroJobQuota] = useState(0);
-  const { channel} = useSelector((state) => state.ytApiCode);
+  const { channel } = useSelector((state) => state.ytApiCode);
   const [channelId, setChannelId] = useState("");
   const channelFromLocalStorage = localStorage.getItem("channelId");
   const dispatch = useDispatch();
-  const { userInfo} = useSelector((state) => state.userLogin);
-  const { microtransaction,error,loading} = useSelector((state) => state.microTransaction_Create);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { microtransaction, error, loading } = useSelector(
+    (state) => state.microTransactionCreate
+  );
 
   const handleFormSent = () => {
     const data = {
@@ -34,28 +36,43 @@ const CreateNewMicroTransaction = () => {
     const response = await getWithoutAuth(
       "/api/v1.0/microtransactions/oauth2/youtube/clientUrl"
     );
-    window.open(response.data, "_blank", "noreferrer");
+    window.open(response.data);
   };
 
   useEffect(() => {
+    function checkChannelId() {
+      const item = localStorage.getItem("channelId");
+
+      if (item) {
+        setChannelId(item);
+      }
+    }
+
+    window.addEventListener("storage", checkChannelId);
+
+    return () => {
+      window.removeEventListener("storage", checkChannelId);
+    };
+  }, []);
+  useEffect(() => {
     setChannelId(channel);
-  }, [channel, channelFromLocalStorage]);
+  }, [channel]);
 
   return (
     <UserLayout>
       <div className="px-4">
-        <h1>Create New Micro Transaction Page</h1>
+        <h1>Create New Micro Transaction</h1>
         {microtransaction ? (
-          <div class="alert alert-success my-2" role="alert">
-           Successfully created!
+          <div className="alert alert-success my-2" role="alert">
+            Successfully created!
           </div>
         ) : error ? (
-          <div class="alert alert-danger my-2" role="alert">
+          <div className="alert alert-danger my-2" role="alert">
             {error}
           </div>
         ) : (
           loading && (
-            <div class="alert alert-primary my-2" role="alert">
+            <div className="alert alert-primary my-2" role="alert">
               Your request is sent. Please wait.
             </div>
           )

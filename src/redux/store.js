@@ -3,6 +3,7 @@ import { applyMiddleware, combineReducers, createStore, compose } from "@reduxjs
 
 import { thunk } from "redux-thunk";
 import { ytApiCodeProcess } from "./actions/YtApiCodeAction";
+import { jobCreateReducer } from "./reducers/JobReducer";
 import { MicroTransactionCreateReducer } from "./reducers/MicroTransactionReducer";
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
 import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
@@ -22,8 +23,9 @@ const enhancer = composeEnhancers(
 const rootReducer = combineReducers({
   userLogin: UserReducer,
   ytApiCode: YtApiCodeReducer,
-  microTransaction_Create: MicroTransactionCreateReducer,
-  userRegister: UserRegisterReducer
+  microTransactionCreate: MicroTransactionCreateReducer,
+  userRegister: UserRegisterReducer,
+  jobCreate: jobCreateReducer
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -32,7 +34,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const ytChannelFromStorage = localStorage.getItem("channelId")
   ? localStorage.getItem("channelId")
-  : null;
+  : "";
 
 const initialState = {
   userLogin: {

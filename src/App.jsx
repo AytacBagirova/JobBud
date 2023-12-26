@@ -35,7 +35,7 @@ function App() {
         <Route path="wallet" element={<PaymentsPage />} />
         <Route path="jobdetails" element={<JobDetailsPage />} />
         <Route path="findmicrojobs" element={<FindMicroJobPage />} />
-            <Route path="offerhistorypage" element={<OfferHistoryPage/>} />
+        <Route path="offerhistory" element={<OfferHistoryPage />} />
         <Route
           path="microtransactions/youtube/code"
           element={<ProcessYtApiCode />}
