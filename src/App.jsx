@@ -1,3 +1,4 @@
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.scss';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
