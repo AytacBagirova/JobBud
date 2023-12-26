@@ -23,24 +23,22 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* PUBLIC */}
+        <Route index element={<HomePage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route index element={<HomePage />} />
         {/* Protected */}
-        <Route>
-          <Route path="findjob" element={<FindWorkPage />} />
-          <Route path="myJobs" element={<MyJobsPage />} />
-          <Route path="findfreelancer" element={<FindFreelancersPage />} />
-          <Route path="createjob" element={<CreateNewJobPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-          <Route path="wallet" element={<PaymentsPage />} />
-          <Route path="jobdetails" element={<JobDetailsPage />} />
-          <Route path="findmicrojobs" element={<FindMicroJobPage />} />
-          <Route path="offerhistorypage" element={<OfferHistoryPage />} />
-          <Route path="microtransactions/youtube/code" element={<ProcessYtApiCode />} />
-          <Route path="/microtransaction/create" element={<CreateNewMicroTransaction />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
+        <Route path="findjob" element={<FindWorkPage />} />
+        <Route path="myJobs" element={<MyJobsPage />} />
+        <Route path="findfreelancer" element={<FindFreelancersPage />} />
+        <Route path="createjob" element={<CreateNewJobPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="wallet" element={<PaymentsPage />} />
+        <Route path="jobdetails" element={<JobDetailsPage />} />
+        <Route path="findmicrojobs" element={<FindMicroJobPage />} />
+        <Route path="offerhistorypage" element={<OfferHistoryPage />} />
+        <Route path="microtransactions/youtube/code" element={<ProcessYtApiCode />} />
+        <Route path="/microtransaction/create" element={<CreateNewMicroTransaction />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
