@@ -3,14 +3,19 @@ import Layout from "../../components/Layout/Layout";
 import UserLayout from '../../components/Layout/UserLayout';
 
 function JobDetailsPage() {
+//Burası İş detaylarının ve o işe gelen offerların listesinin bulunduğu sayfa olacak.
+//İş update için editJob gibisinden farklı bir component oluşturulabilir.
+// Aynı zamanda work ün gönderileceği sayfa da burası olacak. alt kısımda teklifler başlığıyla offer cardları,
+// en altta da work göndermek için 1 tane card bulunmalı.
+
   const [editedJob, setEditedJob] = useState("Job goes here.");
+  const [jobTitle, setJobTitle] = useState("Job Title");
 
   const handleEditChange = (e) => {
     setEditedJob(e.target.value);
   };
 
-  const handleCancel = () => {
-  };
+
 
   const handleSubmit = () => {
   };
@@ -21,20 +26,22 @@ function JobDetailsPage() {
         <h2>Job Details</h2>
         <div className="card w-100 mb-3">
           <div className="card-body">
-            <h5 className="card-title">Job Title</h5>
-            <textarea
+            <div className="form-group">
+              {" "}
+              <input type="text" value={jobTitle} className="form-control" />
+            </div>
+          <div className="form-group"> <textarea
               className="form-control"
               value={editedJob}
               onChange={handleEditChange}
             />
           </div>
+          </div>
           <div className="card-footer d-flex justify-content-end">
             <button className="btn btn-success ml-2" onClick={handleSubmit}>
-              Submit
+              Update
             </button>
-            <button className="btn btn-danger ml-2" onClick={handleCancel}>
-              Terminate
-            </button>
+          
           </div>
         </div>
       </div>

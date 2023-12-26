@@ -17,21 +17,37 @@ function FindJobPage() {
               or fiverr.
             </h5>
             <p class="card-text">
-             We can deal over price. If you have an offer please let me know
+              We can deal over price. If you have an offer please let me know
             </p>
           </div>
           <div class="text-end">
-            <span class="badge bg-success">Budget<br/> 500 TL</span>
+            <span class="badge bg-success">
+              Budget
+              <br /> 500 TL
+            </span>
           </div>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary">
-            Make Offer
-          </a>
+          
+          <div className="row">
+
+            <div className="col-6">
+              {" "}
+              <a href="#" class="btn btn-primary">
+                Make Offer
+              </a>
+            </div>{" "}
+            <div className="col-6 ">
+              {" "}
+             
+             Owner Username
+              
+            </div>
+          </div>
         </div>
       </div>
     );
-  }
+  };
 
   const listJobs = () => {
     let list = [];
@@ -53,9 +69,26 @@ function FindJobPage() {
     <>
       <UserLayout>
         <h1>FIND JOB</h1>
-
-     {listJobs()}
-
+        <div className="d-flex justify-content-center mx-auto">
+          <div className="col-12 my-5">
+            <div className="row">
+              {" "}
+              <div className="col-9">
+                {" "}
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search Job "
+                />
+              </div>{" "}
+              <div className="col-3">
+                {" "}
+                <div className="btn btn-outline-teal w-auto">Search It 🔎</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {listJobs()}
       </UserLayout>
     </>
   );
