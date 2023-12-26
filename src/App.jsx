@@ -16,7 +16,7 @@ import PaymentsPage from "./pages/WalletPage/WalletPage";
 import JobDetailsPage from "./pages/JobDetailsPage/JobDetailsPage";
 import FindMicroJobPage from "./pages/FindMicroJobPage/FindMicroJobPage";
 import CreateNewMicroTransaction from "./pages/CreateNewMicroTransactionPage/CreateNewMicroTransactionPage";
-
+import OfferHistoryPage from "./pages/OffersPage/OfferHistoryPage";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +32,7 @@ function App() {
           <Route path="wallet" element={<PaymentsPage />} />
           <Route path="jobdetails" element={<JobDetailsPage />} />
           <Route path="findmicrojobs" element={<FindMicroJobPage />} />
+          <Route path="offerhistorypage" element={<OfferHistoryPage/>} />
           <Route
             path="/microtransaction/create"
             element={<CreateNewMicroTransaction />}
