@@ -25,7 +25,7 @@ const SidebarMenu = () => {
       </div>
 
       <ul class="list-unstyled components">
-        <p>Welcome {currentUser.userType},</p>
+        <p>Welcome {currentUser.username}</p>
         <li>
           <a href="/profile">Profile</a>
         </li>

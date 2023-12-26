@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import './CreateNewJobPage.css'; // Import your CSS file
-import Layout from '../../components/Layout/Layout';
 import UserLayout from '../../components/Layout/UserLayout';
+import { useDispatch, useSelector } from 'react-redux';
+import { createJob } from '../../redux/actions/JobActions';
 
 const CreateNewJobPage = () => {
   // create new job form
   const [jobTitle, setJobTitle] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [jobBudget, setJobBudget] = useState('');
+  const dispatch = useDispatch();
 
   const handleFormSent = () => {
-  
-    console.log('Job Title: ', jobTitle);
-    console.log('Job Description: ', jobDescription);
-    console.log('Budget: ', jobBudget);
+    const jobData = {
+      jobTitle,
+      jobDescription,
+      jobBudget,
+    };
+    console.log("Job Data:", jobData); // debugging
+    dispatch(createJob(jobData));
   };
 
   return (

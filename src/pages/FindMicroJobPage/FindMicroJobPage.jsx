@@ -1,48 +1,51 @@
-import Header from "../../components/Header/Header";
-import Layout from "../../components/Layout/Layout";
-import "./FindMicroJobPage.css";
+import React from "react";
+import UserLayout from "../../components/Layout/UserLayout";
 
 function FindMicroJobPage() {
   const instanceOfJob = () => {
     return (
-      <div class="card w-100 mb-3">
-        <div class="card-body d-flex justify-content-between">
+      <div className="card w-100 mb-3">
+        <div className="card-body d-flex justify-content-between">
           <div>
-            <h5 class="card-title">
-              I need someone to be able to develop website similar of freelancer
-              or fiverr.
+            <h5 className="card-title">
+              Subscribe to my YouTube Channel
             </h5>
-            <p class="card-text">
-             We can deal over price. If you have an offer please let me know
+            <p className="card-text">
+              Click the button below to subscribe and stay updated with my content.
             </p>
           </div>
-          <div class="text-end">
-            <span class="badge bg-success">Budget<br/> 500 TL</span>
+          <div className="text-end">
+            {/* Assume your YouTube channel name is "MyChannel" */}
+            <span className="badge bg-success">2$</span>
           </div>
         </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary">
-            Make Offer
+        <div className="card-footer">
+          <a
+            href="https://www.youtube.com/mychannel"  // Replace with your actual channel URL
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
+            Subscribe
           </a>
         </div>
       </div>
     );
-  }
+  };
 
-   const listJobs = () => {
+  const listJobs = () => {
     let list = [];
     for (let i = 0; i < 5; i++)
       list.push(<li key={i}>{instanceOfJob()}</li>);
     return list;
   };
+
   return (
     <>
-      <Layout>
+      <UserLayout>
         <h1>FIND MICRO JOB</h1>
-
-     {listJobs()}
-
-      </Layout>
+        {listJobs()}
+      </UserLayout>
     </>
   );
 }
