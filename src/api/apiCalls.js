@@ -1,5 +1,13 @@
 import axios from "axios";
-export const postWithAuth = async (url, body,token) => {
+const localUser = JSON.parse(localStorage.getItem("userInfo"));
+let token;
+if (localUser) {
+  token = localUser.accessToken;
+}
+ 
+export const postWithAuth = async (url, body) => {
+  console.log("🚀 ~ file: apiCalls.js:4 ~ token:", token);
+
   return await axios.post(url, body, {
     headers: {
       "Content-Type": "application/json",
@@ -11,7 +19,7 @@ export const postWithoutAuth = async (url, body) => {
   return await axios.post(url, body);
 };
 
-export const putWithAuth = async (url, body,token) => {
+export const putWithAuth = async (url, body) => {
   return await axios.put(url, body, {
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +27,8 @@ export const putWithAuth = async (url, body,token) => {
     },
   });
 };
-export const getWithAuth = async (url, param = {},token) => {
+export const getWithAuth = async (url, param = {}, state) => {
+  
   return await axios.get(url, {
     param,
     headers: {
@@ -31,7 +40,7 @@ export const getWithAuth = async (url, param = {},token) => {
 export const getWithoutAuth = async (url, param = {}) => {
   return await axios.get(url, param);
 };
-export const deleteWithAuth = async (url,token) => {
+export const deleteWithAuth = async (url) => {
   return await axios.delete(url, {
     headers: {
       "Content-Type": "application/json",

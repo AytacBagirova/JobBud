@@ -1,34 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getWithoutAuth, postWithoutAuth } from "../../api/apiCalls";
 import Layout from "../../components/Layout/Layout";
 import UserLayout from "../../components/Layout/UserLayout";
+import { createMicroTransaction } from "../../redux/actions/MicroTransactionAction";
 
 const CreateNewMicroTransaction = () => {
-  // create new job form
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [jobBudget, setJobBudget] = useState(0);
   const [microJobQuota, setMicroJobQuota] = useState(0);
+  const { channel} = useSelector((state) => state.ytApiCode);
   const [channelId, setChannelId] = useState("");
+  const channelFromLocalStorage = localStorage.getItem("channelId");
+  const dispatch = useDispatch();
+  const { userInfo} = useSelector((state) => state.userLogin);
+  const { microtransaction,error,loading} = useSelector((state) => state.microTransaction_Create);
 
   const handleFormSent = () => {
-    console.log("Job Title: ", jobTitle);
-    console.log("Job Description: ", jobDescription);
-    console.log("Budget: ", jobBudget);
+    const data = {
+      label: jobTitle,
+      description: jobDescription,
+      quota: microJobQuota,
+      budget: jobBudget,
+      channelId: channelId,
+      ownerId: userInfo.id,
+    };
+
+    dispatch(createMicroTransaction(data));
   };
 
-  const handleGetYourChannelId =async () => {
+  const handleGetYourChannelId = async () => {
     const response = await getWithoutAuth(
       "/api/v1.0/microtransactions/oauth2/youtube/clientUrl"
     );
     window.open(response.data, "_blank", "noreferrer");
-    console.log("🚀 ~ file: CreateNewMicroTransactionPage.jsx:22 ~ handleGetYourChannelId ~ response:", )
-    
-  }
+  };
+
+  useEffect(() => {
+    setChannelId(channel);
+  }, [channel, channelFromLocalStorage]);
+
   return (
     <UserLayout>
       <div className="px-4">
         <h1>Create New Micro Transaction Page</h1>
+        {microtransaction ? (
+          <div class="alert alert-success my-2" role="alert">
+           Successfully created!
+          </div>
+        ) : error ? (
+          <div class="alert alert-danger my-2" role="alert">
+            {error}
+          </div>
+        ) : (
+          loading && (
+            <div class="alert alert-primary my-2" role="alert">
+              Your request is sent. Please wait.
+            </div>
+          )
+        )}
         <div className="form-group">
           <label htmlFor="jobTitle">Job Title</label>
           <input
@@ -85,7 +116,11 @@ const CreateNewMicroTransaction = () => {
             </div>{" "}
           </div>
           <div className="col-3">
-            <div className="btn btn-primary " style={{marginTop:28}} onClick={handleGetYourChannelId}>
+            <div
+              className="btn btn-primary "
+              style={{ marginTop: 28 }}
+              onClick={handleGetYourChannelId}
+            >
               Get Your Channel Id Easily
             </div>
           </div>
