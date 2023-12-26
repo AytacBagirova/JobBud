@@ -27,8 +27,10 @@ const SidebarMenu = () => {
         <h3>JobBud</h3>
       </div>
 
-      <ul className="list-unstyled components">
-        <p>Welcome {currentUser.userType},</p>
+
+      <ul class="list-unstyled components">
+        <p>Welcome {currentUser.username}</p>
+
         <li>
           <a href="/profile">Profile</a>
         </li>
