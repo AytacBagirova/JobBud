@@ -1,48 +1,48 @@
-*{
-   font-weight: 500;
+* {
+  font-weight: 500;
 }
 .hero-header {
-   align-items: center;
- }
- 
- .navbar-nav {
-   display: flex;
-   gap: 20px;
- }
- 
- .navbar-nav .nav-link {
-   display: inline-block;
- } 
- .user-info {
-   display: flex;
-   align-items: center;
-   gap: 10px;
- }
- .nav-item{
-   display: flex;
- }
+  align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-nav .nav-link {
+  display: inline-block;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-item {
+  display: flex;
+}
 /* .profile{
    position: relative;
    margin: 10px;
    cursor: pointer;
  }*/
- .options {
-   position: absolute;
-   width: 200px;
-   top: 50px;
-   right: 0;
-   background-color: #fff;
-   border-radius: 5px;
-   padding: 10px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-   display: flex;
-   flex-direction: column;
-   color: gray;
-   z-index: 1;
- }
+.options {
+  position: absolute;
+  width: 200px;
+  top: 50px;
+  right: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  z-index: 1;
+}
 
- hr {
-   border: 0.5px solid black !important;
-   margin: 7px 0 !important;
-   opacity: 0.25;
- }
+hr {
+  border: 0.5px solid black !important;
+  margin: 7px 0 !important;
+  opacity: 0.25;
+}

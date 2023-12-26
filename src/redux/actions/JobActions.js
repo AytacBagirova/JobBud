@@ -19,16 +19,16 @@ export const createJob = (jobData) => async (dispatch) => {
     dispatch(createJobRequest());
 
     const response = await postWithAuth('/api/v1.0/jobs', {
-        ...jobData,
-        });
-        const data = response.data;
-        console.log(data);
-        // {jobTitle: 'asd', jobDescription: 'asd', jobBudget: 'asd'}
-        const Data = {
-            jobTitle: data.jobTitle,
-            jobDescription: data.jobDescription,
-            jobBudget: data.jobBudget,
-        }
+      ...jobData,
+    });
+    const data = response.data;
+    console.log(data);
+    // {jobTitle: 'asd', jobDescription: 'asd', jobBudget: 'asd'}
+    const Data = {
+      jobTitle: data.jobTitle,
+      jobDescription: data.jobDescription,
+      jobBudget: data.jobBudget,
+    };
 
     dispatch(createJobSuccess());
 

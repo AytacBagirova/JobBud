@@ -1,9 +1,9 @@
-import { putWithAuth} from "../../api/apiCalls";
+import { putWithAuth } from '../../api/apiCalls';
 import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-} from "../../constants/UpdateConstants";
+} from '../../constants/UpdateConstants';
 
 export const updateUser = (userData) => async (dispatch, getState) => {
   try {
@@ -11,16 +11,23 @@ export const updateUser = (userData) => async (dispatch, getState) => {
       type: USER_UPDATE_REQUEST,
     });
 
-    const { userLogin: { userInfo } } = getState();
-    console.log(userInfo);
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
-    const response = await putWithAuth(`/api/v1.0/users/${userInfo.id}`, {
-      id: userInfo.id,
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-      userType: userData.userType,
-    }, userInfo.accessToken);
+    const { id, username, email, password, userType } = userData;
+
+    const response = await putWithAuth(
+      `/api/v1.0/users/${userInfo.id}`,
+      {
+        id,
+        username,
+        email,
+        password,
+        userType,
+      },
+      userInfo.accessToken
+    );
 
     dispatch({
       type: USER_UPDATE_SUCCESS,
@@ -30,9 +37,7 @@ export const updateUser = (userData) => async (dispatch, getState) => {
     dispatch({
       type: USER_UPDATE_FAIL,
       payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };

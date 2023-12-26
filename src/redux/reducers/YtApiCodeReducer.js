@@ -1,7 +1,8 @@
 import {
-    
-} from "../../constants/UserConstants";
-import { YOUTUBE_REQUEST_FAILED, YOUTUBE_REQUEST_SENDING, YOUTUBE_REQUEST_SUCCESS } from "../../constants/YtApiConstants";
+  YOUTUBE_REQUEST_FAILED,
+  YOUTUBE_REQUEST_SENDING,
+  YOUTUBE_REQUEST_SUCCESS,
+} from '../../constants/YtApiConstants';
 
 export const YtApiCodeReducer = (state = {}, action) => {
   switch (action.type) {

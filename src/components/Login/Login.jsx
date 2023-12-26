@@ -1,26 +1,22 @@
-import { createAction } from "@reduxjs/toolkit";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { postWithoutAuth } from "../../api/apiCalls";
-import { login } from "../../redux/actions/UserAction";
-import "./Login.css";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { login } from '../../redux/actions/UserAction';
+import './Login.css';
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const userLogin = useSelector((state) => state.userLogin);
-
 
   const history = useNavigate();
   const dispatch = useDispatch();
 
-
-const {error,loading,userInfo}=userLogin
+  const { error, userInfo } = userLogin;
   useEffect(() => {
     if (userInfo) {
-      history("/profile");
+      history('/profile');
     }
   }, [history, userInfo]);
 
@@ -35,10 +31,9 @@ const {error,loading,userInfo}=userLogin
           <div className="card">
             <div className="card-body">
               <h2 className="text-center">Sign in</h2>
-
               <div className="p-3">
                 {error && (
-                  <div class="alert alert-danger my-2" role="alert">
+                  <div className="alert alert-danger my-2" role="alert">
                     {error}
                   </div>
                 )}
@@ -66,22 +61,17 @@ const {error,loading,userInfo}=userLogin
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-
                 <center>
-                  {" "}
-                  <div
-                    className="btn btn-success col-12 mt-3"
-                    onClick={handleSignIn}
-                  >
+                  &nbsp;
+                  <div className="btn btn-success col-12 mt-3" onClick={handleSignIn}>
                     Sign in
                   </div>
                 </center>
-
                 <center>
                   <label className="mt-3">
-                    Dont you have an account yet?{" "}
+                    Don&apos;t have an account yet?&nbsp;
                     <a href="/register" className="fw-bold text-primary">
-                      Click here
+                      Click here&nbsp;
                     </a>
                     to sign up
                   </label>

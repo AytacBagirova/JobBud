@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import Layout from "../../components/Layout/Layout";
+import { useState } from 'react';
 import UserLayout from '../../components/Layout/UserLayout';
 
 function JobDetailsPage() {
-  const [editedJob, setEditedJob] = useState("Job goes here.");
+  const [editedJob, setEditedJob] = useState('');
 
   const handleEditChange = (e) => {
     setEditedJob(e.target.value);
   };
 
-  const handleCancel = () => {
-  };
+  const handleCancel = () => {};
 
-  const handleSubmit = () => {
-  };
+  const handleSubmit = () => {};
 
   return (
     <UserLayout>
@@ -24,16 +21,17 @@ function JobDetailsPage() {
             <h5 className="card-title">Job Title</h5>
             <textarea
               className="form-control"
+              placeholder="Job goes here."
               value={editedJob}
               onChange={handleEditChange}
             />
           </div>
           <div className="card-footer d-flex justify-content-end">
-            <button className="btn btn-success ml-2" onClick={handleSubmit}>
+            <button type="submit" className="btn btn-success ml-2" onClick={handleSubmit}>
               Submit
             </button>
             <button className="btn btn-danger ml-2" onClick={handleCancel}>
-              Terminate
+              Cancel
             </button>
           </div>
         </div>

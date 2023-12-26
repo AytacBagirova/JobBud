@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getWithoutAuth, postWithoutAuth } from "../../api/apiCalls";
-import Layout from "../../components/Layout/Layout";
-import UserLayout from "../../components/Layout/UserLayout";
-import { createMicroTransaction } from "../../redux/actions/MicroTransactionAction";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getWithoutAuth } from '../../api/apiCalls';
+import UserLayout from '../../components/Layout/UserLayout';
+import { createMicroTransaction } from '../../redux/actions/MicroTransactionAction';
 
 const CreateNewMicroTransaction = () => {
-  const [jobTitle, setJobTitle] = useState("");
-  const [jobDescription, setJobDescription] = useState("");
+  const [jobTitle, setJobTitle] = useState('');
+  const [jobDescription, setJobDescription] = useState('');
   const [jobBudget, setJobBudget] = useState(0);
   const [microJobQuota, setMicroJobQuota] = useState(0);
-  const { channel} = useSelector((state) => state.ytApiCode);
-  const [channelId, setChannelId] = useState("");
-  const channelFromLocalStorage = localStorage.getItem("channelId");
+  const { channel } = useSelector((state) => state.ytApiCode);
+  const [channelId, setChannelId] = useState('');
+  const channelFromLocalStorage = localStorage.getItem('channelId');
   const dispatch = useDispatch();
-  const { userInfo} = useSelector((state) => state.userLogin);
-  const { microtransaction,error,loading} = useSelector((state) => state.microTransaction_Create);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { microtransaction, error, loading } = useSelector(
+    (state) => state.microTransaction_Create
+  );
 
   const handleFormSent = () => {
     const data = {
@@ -31,35 +32,43 @@ const CreateNewMicroTransaction = () => {
   };
 
   const handleGetYourChannelId = async () => {
-    const response = await getWithoutAuth(
-      "/api/v1.0/microtransactions/oauth2/youtube/clientUrl"
-    );
-    window.open(response.data, "_blank", "noreferrer");
+    const response = await getWithoutAuth('/api/v1.0/microtransactions/oauth2/youtube/clientUrl');
+    window.open(response.data, '_blank', 'noreferrer');
   };
 
   useEffect(() => {
     setChannelId(channel);
   }, [channel, channelFromLocalStorage]);
 
+  const renderTransactionStatus = () => {
+    if (microtransaction) {
+      return (
+        <div className="alert alert-success my-2" role="alert">
+          Successfully created!
+        </div>
+      );
+    }
+    if (error) {
+      return (
+        <div className="alert alert-danger my-2" role="alert">
+          {error}
+        </div>
+      );
+    }
+    if (loading) {
+      return (
+        <div className="alert alert-primary my-2" role="alert">
+          Your request is sent. Please wait.
+        </div>
+      );
+    }
+  };
+
   return (
     <UserLayout>
       <div className="px-4">
         <h1>Create New Micro Transaction Page</h1>
-        {microtransaction ? (
-          <div class="alert alert-success my-2" role="alert">
-           Successfully created!
-          </div>
-        ) : error ? (
-          <div class="alert alert-danger my-2" role="alert">
-            {error}
-          </div>
-        ) : (
-          loading && (
-            <div class="alert alert-primary my-2" role="alert">
-              Your request is sent. Please wait.
-            </div>
-          )
-        )}
+        {renderTransactionStatus()}
         <div className="form-group">
           <label htmlFor="jobTitle">Job Title</label>
           <input
@@ -92,7 +101,7 @@ const CreateNewMicroTransaction = () => {
             onChange={(e) => setJobBudget(e.target.value)}
             className="form-control"
           />
-        </div>{" "}
+        </div>{' '}
         <div className="form-group">
           <label htmlFor="jobBudget">Job Quota</label>
           <input
@@ -104,7 +113,6 @@ const CreateNewMicroTransaction = () => {
         </div>
         <div className="row">
           <div className="col-9">
-            {" "}
             <div className="form-group">
               <label htmlFor="jobBudget">Channel Id</label>
               <input
@@ -113,21 +121,21 @@ const CreateNewMicroTransaction = () => {
                 onChange={(e) => setChannelId(e.target.value)}
                 className="form-control"
               />
-            </div>{" "}
+            </div>
           </div>
           <div className="col-3">
-            <div
-              className="btn btn-primary "
+            <button
+              className="btn btn-primary"
               style={{ marginTop: 28 }}
               onClick={handleGetYourChannelId}
             >
               Get Your Channel Id Easily
-            </div>
+            </button>
           </div>
         </div>
-        <div className="btn btn-success" onClick={handleFormSent}>
+        <button className="btn btn-success" onClick={handleFormSent}>
           Create New Job
-        </div>
+        </button>
       </div>
     </UserLayout>
   );

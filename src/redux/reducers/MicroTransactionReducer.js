@@ -1,4 +1,8 @@
-import { MICRO_TRANSACTION_CREATE_FAIL, MICRO_TRANSACTION_CREATE_REQUEST, MICRO_TRANSACTION_CREATE_SUCCESS } from "../../constants/MicroTransactionconstants";
+import {
+  MICRO_TRANSACTION_CREATE_FAIL,
+  MICRO_TRANSACTION_CREATE_REQUEST,
+  MICRO_TRANSACTION_CREATE_SUCCESS,
+} from '../../constants/MicroTransactionconstants';
 
 export const MicroTransactionCreateReducer = (state = {}, action) => {
   switch (action.type) {
@@ -8,7 +12,7 @@ export const MicroTransactionCreateReducer = (state = {}, action) => {
       return { loading: false, microtransaction: action.payload };
     case MICRO_TRANSACTION_CREATE_FAIL:
       return { loading: false, error: action.payload };
-   
+
     default:
       return state;
   }

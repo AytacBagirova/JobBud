@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './CreateNewJobPage.css'; // Import your CSS file
 import UserLayout from '../../components/Layout/UserLayout';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createJob } from '../../redux/actions/JobActions';
 
 const CreateNewJobPage = () => {
@@ -17,7 +17,7 @@ const CreateNewJobPage = () => {
       jobDescription,
       jobBudget,
     };
-    console.log("Job Data:", jobData); // debugging
+    console.log('Job Data:', jobData); // debugging
     dispatch(createJob(jobData));
   };
 
@@ -59,9 +59,9 @@ const CreateNewJobPage = () => {
             className="form-control"
           />
         </div>
-        <div className="btn btn-success" onClick={handleFormSent}>
+        <button type="button" className="btn btn-success" onClick={handleFormSent}>
           Create New Job
-        </div>
+        </button>
       </div>
     </UserLayout>
   );

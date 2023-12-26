@@ -1,14 +1,13 @@
+import { applyMiddleware, combineReducers, createStore, compose } from '@reduxjs/toolkit';
 
-import { applyMiddleware, combineReducers, createStore, compose } from "@reduxjs/toolkit";
-
-import { thunk } from "redux-thunk";
-import { ytApiCodeProcess } from "./actions/YtApiCodeAction";
-import { MicroTransactionCreateReducer } from "./reducers/MicroTransactionReducer";
-import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
-import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
+import { thunk } from 'redux-thunk';
+import { ytApiCodeProcess } from './actions/YtApiCodeAction';
+import { MicroTransactionCreateReducer } from './reducers/MicroTransactionReducer';
+import { UserReducer, UserRegisterReducer } from './reducers/UserReducer';
+import { YtApiCodeReducer } from './reducers/YtApiCodeReducer';
 
 const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })
@@ -23,15 +22,15 @@ const rootReducer = combineReducers({
   userLogin: UserReducer,
   ytApiCode: YtApiCodeReducer,
   microTransaction_Create: MicroTransactionCreateReducer,
-  userRegister: UserRegisterReducer
+  userRegister: UserRegisterReducer,
 });
 
-const userInfoFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
-const ytChannelFromStorage = localStorage.getItem("channelId")
-  ? localStorage.getItem("channelId")
+const ytChannelFromStorage = localStorage.getItem('channelId')
+  ? localStorage.getItem('channelId')
   : null;
 
 const initialState = {

@@ -1,9 +1,9 @@
-import React from "react";
-import UserHeader from "../Header/UserHeader";
-import "./Sidebar.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/actions/UserAction";
+import React from 'react';
+import UserHeader from '../Header/UserHeader';
+import './Sidebar.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/actions/UserAction';
 
 const SidebarMenu = () => {
   const user = useSelector((state) => state.userLogin);
@@ -18,7 +18,7 @@ const SidebarMenu = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
-    history("/");
+    history('/');
   };
 
   return (
@@ -27,14 +27,13 @@ const SidebarMenu = () => {
         <h3>JobBud</h3>
       </div>
 
-
       <ul class="list-unstyled components">
         <p>Welcome {currentUser.username}</p>
 
         <li>
           <a href="/profile">Profile</a>
         </li>
-        {currentUser.userType === "FREELANCER" ? (
+        {currentUser.userType === 'FREELANCER' ? (
           <>
             <li className="active">
               <a
@@ -111,7 +110,7 @@ const SidebarMenu = () => {
                 <li>
                   <a href="/microtransaction/create">Add Micro Job</a>
                 </li>
-                
+
                 <li>
                   <a href="#">My Micro Jobs</a>
                 </li>
@@ -148,7 +147,6 @@ const SidebarMenu = () => {
 };
 
 export default SidebarMenu;
-
 
 /* Pages&Components should exist for customer
 
