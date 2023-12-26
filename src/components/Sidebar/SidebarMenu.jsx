@@ -4,37 +4,39 @@ import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/UserAction";
+
 const SidebarMenu = () => {
   const user = useSelector((state) => state.userLogin);
   let currentUser = null;
-  if (user)
+  if (user) {
     currentUser = {
       ...user.userInfo,
     };
+  }
   const history = useNavigate();
-   const dispatch = useDispatch();
-   const logoutHandler = () => {
-     dispatch(logout());
-     history("/")
+  const dispatch = useDispatch();
 
-   };
+  const logoutHandler = () => {
+    dispatch(logout());
+    history("/");
+  };
+
   return (
     <nav id="sidebar">
-      <div class="sidebar-header">
+      <div className="sidebar-header">
         <h3>JobBud</h3>
       </div>
 
-      <ul class="list-unstyled components">
+      <ul className="list-unstyled components">
         <p>Welcome {currentUser.userType},</p>
         <li>
           <a href="/profile">Profile</a>
         </li>
-        {currentUser.userType == "FREELANCER" ? (
-          <div>
-            {" "}
-            <li class="active">
+        {currentUser.userType === "FREELANCER" ? (
+          <>
+            <li className="active">
               <a
-                class="dropdown-toggle"
+                className="dropdown-toggle"
                 data-bs-toggle="collapse"
                 href="#jobsSubMenu"
                 aria-expanded="false"
@@ -42,7 +44,7 @@ const SidebarMenu = () => {
               >
                 Jobs
               </a>
-              <ul class="collapse list-unstyled" id="jobsSubMenu">
+              <ul className="collapse list-unstyled" id="jobsSubMenu">
                 <li>
                   <a href="/findjob">Find Job</a>
                 </li>
@@ -53,7 +55,7 @@ const SidebarMenu = () => {
             </li>
             <li>
               <a
-                class="dropdown-toggle"
+                className="dropdown-toggle"
                 data-bs-toggle="collapse"
                 href="#microtransactionSubMenu"
                 aria-expanded="false"
@@ -61,7 +63,7 @@ const SidebarMenu = () => {
               >
                 Micro Transactions
               </a>
-              <ul class="collapse list-unstyled" id="microtransactionSubMenu">
+              <ul className="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
                   <Link to="/findmicrojobs">Find Micro Jobs</Link>
                 </li>
@@ -71,13 +73,12 @@ const SidebarMenu = () => {
                 </li>
               </ul>
             </li>
-          </div>
+          </>
         ) : (
-          <div>
-            {" "}
-            <li class="active">
+          <>
+            <li className="active">
               <a
-                class="dropdown-toggle"
+                className="dropdown-toggle"
                 data-bs-toggle="collapse"
                 href="#jobsSubMenu"
                 aria-expanded="false"
@@ -85,7 +86,7 @@ const SidebarMenu = () => {
               >
                 Jobs
               </a>
-              <ul class="collapse list-unstyled" id="jobsSubMenu">
+              <ul className="collapse list-unstyled" id="jobsSubMenu">
                 <li>
                   <a href="/createjob">Add New Job</a>
                 </li>
@@ -96,7 +97,7 @@ const SidebarMenu = () => {
             </li>
             <li>
               <a
-                class="dropdown-toggle"
+                className="dropdown-toggle"
                 data-bs-toggle="collapse"
                 href="#microtransactionSubMenu"
                 aria-expanded="false"
@@ -104,18 +105,35 @@ const SidebarMenu = () => {
               >
                 Micro Transactions
               </a>
-              <ul class="collapse list-unstyled" id="microtransactionSubMenu">
+              <ul className="collapse list-unstyled" id="microtransactionSubMenu">
                 <li>
                   <a href="/microtransaction/create">Add Micro Job</a>
                 </li>
-
+                
                 <li>
                   <a href="#">My Micro Jobs</a>
                 </li>
               </ul>
-            </li>{" "}
-          </div>
-        )}{" "}
+            </li>
+          </>
+        )}
+        {/* New Offers Section */}
+        <li>
+          <a
+            className="dropdown-toggle"
+            data-bs-toggle="collapse"
+            href="#offersSubMenu"
+            aria-expanded="false"
+            aria-controls="offersSubMenu"
+          >
+            Offers
+          </a>
+          <ul className="collapse list-unstyled" id="offersSubMenu">
+            <li>
+              <a href="offerhistorypage">Offer History</a>
+            </li>
+          </ul>
+        </li>
         <li>
           <a href="#" onClick={logoutHandler}>
             Logout
@@ -128,6 +146,7 @@ const SidebarMenu = () => {
 };
 
 export default SidebarMenu;
+
 
 /* Pages&Components should exist for customer
 
