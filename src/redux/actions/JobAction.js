@@ -58,5 +58,28 @@ export const getJobs= (searchQuery) => async (dispatch) => {
   }
 };
 
+export const getJobDetailsRequest = () => ({
+  type: types.JOB_DETAILS_REQUEST,
+});
+
+export const getJobDetailsSuccess = (data) => ({
+  type: types.JOB_DETAILS_SUCCESS,
+  payload: data,
+});
+
+export const getJobDetailsFailure = (error) => ({
+  type: types.JOB_DETAILS_FAILURE,
+  payload: error,
+});
+
+export const getJobDetails = (jobId) => async (dispatch) => {
+  try {
+    dispatch(getJobDetailsRequest());
+    const response = await getWithAuth(`/api/v1.0/jobs/${jobId}`);
+    dispatch(getJobDetailsSuccess(response.data));
+  } catch (error) {
+    dispatch(getJobDetailsFailure(error.message));
+  }
+};
 
 
