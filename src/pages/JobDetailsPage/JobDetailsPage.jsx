@@ -42,6 +42,19 @@ function JobDetailsPage() {
           
           </div>
         </div>
+
+
+        {/*
+    Offerları card olarak listele;
+    reject accept butonları iş sahibi ise
+
+eğer tamamlanmayı bekliyor durumunda  ise;
+    work card
+    
+      
+      
+      
+  */}
       </div>
     </UserLayout>
   );

@@ -2,8 +2,9 @@ import { applyMiddleware, combineReducers, createStore, compose } from '@reduxjs
 import { thunk } from "redux-thunk";
 import { jobCreateReducer, jobListReducer } from "./reducers/JobReducer";
 import { MicroTransactionCreateReducer, MicroTransactionListReducer } from "./reducers/MicroTransactionReducer";
+import { offerCreateReducer, offerListReducer } from './reducers/OfferReducer';
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
-import { getWalletReducer } from './reducers/WalletReducer';
+import { getWalletReducer,getWalletHistoryReducer } from './reducers/WalletReducer';
 import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
 
 const composeEnhancers =
@@ -26,7 +27,10 @@ const rootReducer = combineReducers({
   jobCreate: jobCreateReducer,
   microTransactionList: MicroTransactionListReducer,
   walletDetails: getWalletReducer,
+  walletTransactions: getWalletHistoryReducer,
   jobList: jobListReducer,
+  offerList: offerListReducer,
+  offerCreate:offerCreateReducer
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

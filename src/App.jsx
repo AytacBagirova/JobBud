@@ -18,6 +18,7 @@ import CreateNewMicroTransaction from './pages/CreateNewMicroTransactionPage/Cre
 import OfferHistoryPage from './pages/OffersPage/OfferHistoryPage';
 
 import ProcessYtApiCode from './pages/ProcessYtApiCode/ProcessYtApiCode';
+import MyWorks from './pages/MyWorks/MyWorks';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         {/* Protected */}
         <Route path="findjob" element={<FindWorkPage />} />
         <Route path="myJobs" element={<MyJobsPage />} />
+        <Route path="myWorks" element={<MyWorks />} />
         <Route path="findfreelancer" element={<FindFreelancersPage />} />
         <Route path="createjob" element={<CreateNewJobPage />} />
         <Route path="profile" element={<ProfilePage />} />

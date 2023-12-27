@@ -45,7 +45,7 @@ const SidebarMenu = () => {
                   <a href="/findjob">Find Job</a>
                 </li>
                 <li>
-                  <a href="/myJobs">My Jobs</a>
+                  <a href="/myWorks">My Works</a>
                 </li>
               </ul>
             </li>
@@ -71,7 +71,9 @@ const SidebarMenu = () => {
                   <a href="/mymicrojobs">My micro jobs</a>
                 </li>
               </ul>
-            </li>
+            </li>  <li>
+          <a href="/offerhistory">Offer History</a>
+        </li>
           </>
         ) : (
           <>
@@ -119,23 +121,7 @@ const SidebarMenu = () => {
             </li>
           </>
         )}
-        {/* New Offers Section */}
-        <li>
-          <a
-            className="dropdown-toggle"
-            data-bs-toggle="collapse"
-            href="#offersSubMenu"
-            aria-expanded="false"
-            aria-controls="offersSubMenu"
-          >
-            Offers
-          </a>
-          <ul className="collapse list-unstyled" id="offersSubMenu">
-            <li>
-              <a href="/offerhistory">Offer History</a>
-            </li>
-          </ul>
-        </li>
+    
         <li>
           <a href="#" onClick={logoutHandler}>
             Logout
