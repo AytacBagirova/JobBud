@@ -21,7 +21,7 @@ function Register() {
 
   const dispatch = useDispatch();
   const handleRegister = () => {
-    dispatch(register(username, email, password, userType));
+    dispatch(register({username, email, password, userType}));
   };
   return (
     <>

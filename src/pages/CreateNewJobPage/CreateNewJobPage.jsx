@@ -20,7 +20,7 @@ const CreateNewJobPage = () => {
       jobTitle,
       jobDescription,
       jobBudget,
-      jobDeadline_timestamp
+      jobDeadline_timestamp,
     };
     console.log('Job Data:', jobData); // debugging
     dispatch(createJob(jobData));

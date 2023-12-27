@@ -21,15 +21,13 @@ export const createJob = (jobData) => async (dispatch,getState) => {
  const {
       userLogin: { userInfo },
     } = getState();
-    const response = await postWithAuth("/api/v1.0/jobs", {
+    const response = await postWithAuth("/api/v1.0/jobs ", {
       label: jobData.jobTitle,
       description: jobData.jobDescription,
       budget: jobData.jobBudget,
       deadline: jobData.jobDeadline_timestamp,
       ownerId:userInfo.id
     });
-    // {jobTitle: 'asd', jobDescription: 'asd', jobBudget: 'asd'}
-
 
     dispatch(createJobSuccess(response.data));
 
