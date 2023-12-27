@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import UserLayout from "../../components/Layout/UserLayout";
 
 const MyJobsPage = () => {
- 
-  const InstanceOfJob = (title, description, budget) => {
-  
+  const InstanceOfJob = (id, title, description, budget) => {
     return (
       <div className="card mb-3">
         <div className="card-body d-flex justify-content-between">
@@ -20,7 +18,7 @@ const MyJobsPage = () => {
           </div>
         </div>
         <div className="card-footer">
-          <a href="jobdetails" className="btn btn-primary">
+          <a href={`JobDetails/${id}`} className="btn btn-primary">
             Details
           </a>
         </div>
@@ -28,12 +26,14 @@ const MyJobsPage = () => {
     );
   };
 
-  const listJobs = (jobCount) => {
+  const listJobs = (jobCount, prefix) => {
     let list = [];
     for (let i = 0; i < jobCount; i++) {
+      const id = `${i + 1}`;
       list.push(
-        <div className="col-6" key={i}>
+        <div className="col-6" key={id}>
           {InstanceOfJob(
+            id,
             `Job ${i + 1}`,
             `Description for Job ${i + 1}`,
             `500 TL`
@@ -44,9 +44,9 @@ const MyJobsPage = () => {
     return list;
   };
 
-  const activeJobs = listJobs(5);
-  const pendingJobs = listJobs(3);
-  const completedJobs = listJobs(7);
+  const activeJobs = listJobs(5, "active");
+  const pendingJobs = listJobs(3, "pending");
+  const completedJobs = listJobs(7, "completed");
   const sections = [
     { title: "Active Jobs 🚀", jobs: activeJobs },
     { title: "In Progress ⌛️", jobs: pendingJobs },
@@ -54,18 +54,19 @@ const MyJobsPage = () => {
   ];
 
   const JobTabs = ({ sections }) => {
+    const [activeTab, setActiveTab] = useState(0);
 
-    const [activeTab, setActiveTab] = useState(0); // Aktif sekmenin indeksi
- const changeTab = (index) => {
-    setActiveTab(index)
-  }
+    const changeTab = (index) => {
+      setActiveTab(index);
+    };
+
     return (
       <div>
         <div className="row my-4 justify-content-center">
           {sections.map((section, index) => (
             <button
               key={index}
-              className={` col-3 btn btn-outline-success mx-2 ${
+              className={`col-3 btn btn-outline-success mx-2 ${
                 activeTab === index ? "active" : ""
               }`}
               onClick={() => changeTab(index)}

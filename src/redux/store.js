@@ -1,10 +1,11 @@
 import { applyMiddleware, combineReducers, createStore, compose } from '@reduxjs/toolkit';
 import { thunk } from "redux-thunk";
-import { jobCreateReducer, jobListReducer } from "./reducers/JobReducer";
+import { jobCreateReducer, jobListReducer, jobDetailsReducer } from "./reducers/JobReducer";
 import { MicroTransactionCreateReducer, MicroTransactionListReducer } from "./reducers/MicroTransactionReducer";
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
 import { getWalletReducer } from './reducers/WalletReducer';
 import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
+
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   microTransactionList: MicroTransactionListReducer,
   walletDetails: getWalletReducer,
   jobList: jobListReducer,
+  jobDetails: jobDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

@@ -34,7 +34,7 @@ function App() {
         <Route path="createjob" element={<CreateNewJobPage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="wallet" element={<PaymentsPage />} />
-        <Route path="jobdetails" element={<JobDetailsPage />} />
+        <Route path="JobDetails/:id" element={<JobDetailsPage />} />
         <Route path="findmicrojobs" element={<FindMicroJobPage />} />
         <Route path="offerhistory" element={<OfferHistoryPage />} />
         <Route

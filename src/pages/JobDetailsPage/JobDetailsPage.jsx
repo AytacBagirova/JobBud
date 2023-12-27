@@ -1,48 +1,114 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import UserLayout from '../../components/Layout/UserLayout';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJobDetails } from '../../redux/actions/JobAction';
 
 function JobDetailsPage() {
-//Burası İş detaylarının ve o işe gelen offerların listesinin bulunduğu sayfa olacak.
-//İş update için editJob gibisinden farklı bir component oluşturulabilir.
-// Aynı zamanda work ün gönderileceği sayfa da burası olacak. alt kısımda teklifler başlığıyla offer cardları,
-// en altta da work göndermek için 1 tane card bulunmalı.
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const jobDetails = useSelector((state) => state.jobDetails);
 
-  const [editedJob, setEditedJob] = useState("Job goes here.");
-  const [jobTitle, setJobTitle] = useState("Job Title");
+  const { error, loading, jobInfo } = jobDetails;
 
-  const handleEditChange = (e) => {
-    setEditedJob(e.target.value);
+  useEffect(() => {
+    dispatch(getJobDetails(id)); // Assuming jobData.id is needed for fetching job details
+  }, []);
+
+  const [editText, setEditText] = useState('');
+
+  const handleSubmit = () => {
+    // Add logic for handling the form submission
   };
-
-
-  const handleSubmit = () => {};
 
   return (
     <UserLayout>
-      <div className="job-details">
-        <h2>Job Details</h2>
-        <div className="card w-100 mb-3">
-          <div className="card-body">
-            <div className="form-group">
-              {" "}
-              <input type="text" value={jobTitle} className="form-control" />
+      {error ? (
+        <div className="alert alert-danger my-2" role="alert">
+          {error}
+        </div>
+      ) : loading ? (
+        "Loading..."
+      ) : jobInfo ? (
+        <div className="job-details">
+          <div className="page-title">
+            <h1>Job Details</h1>
+            <div className="card">
+              <div className="card-body d-flex justify-content-between">
+                <div>
+                  <h5 className="card-title">Job Title</h5>
+                  <p className="card-text">{jobInfo.label}</p>
+                  <h5 className="card-title">Job Description</h5>
+                  <p className="card-text">{jobInfo.description}</p>
+                  <h5 className="card-title">Status</h5>
+                  <p className="card-text">{jobInfo.status}</p>
+                </div>
+                <div className="text-end d-flex align-items-center"></div>
+              </div>
             </div>
-          <div className="form-group"> <textarea
-              className="form-control"
-              placeholder="Job goes here."
-              value={editedJob}
-              onChange={handleEditChange}
-            />
-          </div>
-          </div>
-          <div className="card-footer d-flex justify-content-end">
-            <button className="btn btn-success ml-2" onClick={handleSubmit}>
-              Update
-            </button>
-          
+            {/* Offer Card for Freelancer */}
+            {userInfo.userType === 'FREELANCER' && (
+              <div className="card mt-4">
+                <div className="card-body">
+                  <h5 className="card-title">Offer Details</h5>
+                  <p className="card-text">Offer Amount</p>
+                  {userInfo.userType === 'FREELANCER' ? (
+                    <div className="d-flex justify-content-start">
+                      <br />
+                      Status = {jobInfo.status}
+                    </div>
+                  ) : (
+                    <div className="card-footer d-flex justify-content-end">
+                      <a className="btn btn-success">Accept</a>
+                      <a className="btn btn-danger mx-2">Reject</a>
+                    </div>
+                  )}
+                  <br />
+                </div>
+              </div>
+            )}
+
+            {/* Offer Card for Customer */}
+            {userInfo.userType === 'CUSTOMER' && (
+              <div className="card mt-4">
+                <div className="card-body">
+                  <h5 className="card-title">Offer Details</h5>
+                  <p className="card-text">Offer Amount: $20</p>
+                  <div className="card-footer d-flex justify-content-end">
+                    <button className="btn btn-success">Accept</button>
+                    <button className="btn btn-danger mx-2">Reject</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
+      <br />
+      {userInfo.userType === 'FREELANCER' && (
+        <div className="card">
+          <div className="card-body d-flex justify-content-between">
+            <div>
+              <div className="mb-3">
+                <label htmlFor="editText" className="form-label">
+                  Project:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+              </div>
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Submit Project
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </UserLayout>
   );
 }

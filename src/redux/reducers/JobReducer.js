@@ -34,3 +34,18 @@ export const jobListReducer = (state = {}, action) => {
   }
 };
 
+export const jobDetailsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.JOB_DETAILS_REQUEST:
+      return { loading: true };
+
+    case types.JOB_DETAILS_SUCCESS:
+      return { loading: false, jobInfo: action.payload };
+
+    case types.JOB_DETAILS_FAILURE:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
