@@ -3,36 +3,8 @@ import './FindJobPage.css';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobs } from '../../redux/actions/JobAction';
+import JobCard from '../../components/JobCard/JobCard';
 
-// component
-const JobCard = ({ jobData }) => (
-  <div className="card w-100 mb-3">
-    <div className="card-body d-flex justify-content-between">
-      <div>
-        <h5 className="card-title">{jobData.label}</h5>
-        <p className="card-text">{jobData.description}</p>
-      </div>
-      <div className="text-end">
-        <span className="badge bg-success">
-          Budget
-          <br /> {jobData.budget} TL
-        </span>
-      </div>
-    </div>
-    <div className="card-footer">
-      <div className="row">
-        <div className="col-6">
-          <a href="#" className="btn btn-primary">
-            Make Offer
-          </a>
-        </div>
-        <div className="col-6">
-          Owner Username: {jobData.ownerUsername}
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 function FindJobPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,6 +15,7 @@ function FindJobPage() {
   const handleSearchButton = () => {
     dispatch(getJobs(searchQuery));
   };
+
 
    useEffect(() => {
 

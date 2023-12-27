@@ -1,5 +1,5 @@
 import { getWithAuth } from "../../api/apiCalls";
-import { WALLET_GET_BALANCE_FAIL, WALLET_GET_BALANCE_REQUEST, WALLET_GET_BALANCE_SUCCESS } from "../../constants/WalletConstants";
+import { WALLET_GET_BALANCE_FAIL, WALLET_GET_BALANCE_REQUEST, WALLET_GET_BALANCE_SUCCESS, WALLET_GET_HISTORY_REQUEST,WALLET_GET_HISTORY_SUCCESS,WALLET_GET_HISTORY_FAIL } from "../../constants/WalletConstants";
 
 export const walletGetBalance =
   () => async (dispatch,getState) => {
@@ -55,6 +55,27 @@ export const updateUser = (userData) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+export const getWalletHistory= (walletId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: WALLET_GET_HISTORY_REQUEST,
+    });
+
+    const response = await getWithAuth(`/api/v1.0/wallets/${walletId}/history`);
+    const data = response.data;
+    dispatch({
+      type: WALLET_GET_HISTORY_SUCCESS,
+      payload: [ ...data],
+    });
+  } catch (error) {
+    dispatch({
+      type: WALLET_GET_HISTORY_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
