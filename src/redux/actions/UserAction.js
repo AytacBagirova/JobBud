@@ -59,26 +59,37 @@ export const logout = () => (dispatch) => {
 };
 
 export const register =
-  (username, email, password, userType) => async (dispatch) => {
+  (registerState) => async (dispatch) => {
     try {
       dispatch({
         type: USER_REGISTER_REQUEST,
       });
-      const data = await postWithoutAuth("/api/v1.0/auth/register", {
-        username: username,
-        email: email,
-        password: password,
-        userType: userType,
+      const response = await postWithoutAuth("/api/v1.0/auth/register", {
+        username: registerState.username,
+        email: registerState.email,
+        password: registerState.password,
+        userType: registerState.userType,
       });
+
+      const { userId, accessToken, refreshToken, userType, email, username } = response.data;
+      const body = {
+        id: userId,
+        accessToken,
+        refreshToken,
+        userType,
+        email,
+        username,
+      };
       dispatch({
         type: USER_REGISTER_SUCCESS,
-        payload: data,
+        payload: body,
       });
       dispatch({
         type: USER_LOGIN_SUCCESS,
-        payload: data.data,
+        payload: body,
       });
-      localStorage.setItem("userInfo", JSON.stringify(data.data));
+      localStorage.setItem("userInfo", JSON.stringify(body));
+      console.log(body);
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -113,6 +124,7 @@ export const updateUser = (userData) => async (dispatch, getState) => {
       type: USER_UPDATE_SUCCESS,
       payload: response.data,
     });
+    localStorage.setItem("userInfo", JSON.stringify(response.data));
   } catch (error) {
     dispatch({
       type: USER_UPDATE_FAIL,
