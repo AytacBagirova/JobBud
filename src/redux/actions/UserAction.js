@@ -119,7 +119,10 @@ export const updateUser = (userData) => async (dispatch, getState) => {
         email: userData.email,
       }
     );
-
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: response.data,
+    });
     dispatch({
       type: USER_UPDATE_SUCCESS,
       payload: response.data,

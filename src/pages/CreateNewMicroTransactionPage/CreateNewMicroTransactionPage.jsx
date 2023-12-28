@@ -11,12 +11,10 @@ const CreateNewMicroTransaction = () => {
   const [jobBudget, setJobBudget] = useState(0);
   const [microJobQuota, setMicroJobQuota] = useState(0);
   const { channel } = useSelector((state) => state.ytApiChannel);
-  const [channelId, setChannelId] = useState("");
+  const [channelId, setChannelId] = useState('');
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
-  const { microtransaction, error, loading } = useSelector(
-    (state) => state.microTransactionCreate
-  );
+  const { microtransaction, error, loading } = useSelector((state) => state.microTransactionCreate);
 
   const handleFormSent = () => {
     const data = {
@@ -32,25 +30,30 @@ const CreateNewMicroTransaction = () => {
   };
 
   const handleGetYourChannelId = async () => {
-      
     const response = await getWithoutAuth('/api/v1.0/microtransactions/oauth2/youtube/clientUrl');
     window.open(response.data, '_blank', 'noreferrer');
   };
 
- useEffect(async () => {
-   function checkYtCode() {
-     const item = localStorage.getItem('ytCode');
+  useEffect(() => {
+    const fetchData = async () => {
+      function checkYtCode() {
+        const item = localStorage.getItem('ytCode');
 
-     if (item) {
-       dispatch(findChannelId(item));
-     }
-   }
-   window.addEventListener('storage', checkYtCode);
-  
-   return () => {
-     window.removeEventListener('storage', checkYtCode);
-   };
- }, []);
+        if (item) {
+          dispatch(findChannelId(item));
+        }
+      }
+
+      window.addEventListener('storage', checkYtCode);
+    };
+
+    fetchData();
+
+    return () => {
+      window.removeEventListener('storage', checkYtCode);
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     setChannelId(channel);
   }, [channel]);

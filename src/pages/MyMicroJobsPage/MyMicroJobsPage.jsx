@@ -1,63 +1,66 @@
 // src/App.js
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import UserLayout from '../../components/Layout/UserLayout';
+import { getMicroTransactions } from '../../redux/actions/MicroTransactionAction';
 
 function MyMicroJobsPage() {
-  const cardsData = [];
+  const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const microTransactionState = useSelector((state) => state.microTransactionList);
+  const { loading, error, microtransactions:microTransactions } = microTransactionState;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMicroTransactions(userInfo.id));
+  }, []);
 
-  for (let i = 1; i < 6; i++) {
-    const quota = (Math.random() * 100).toFixed(0);
-    cardsData.push({
-      title: `Channel ${i}`,
-      budget: `20$`,
-      text: `This is the content of channel ${i}.`,
-      quota: ` Quota = ${quota} `,
-      remaining: `/ Remaining = ${quota - 10}`,
-      totalEarned: (Math.random() * 100).toFixed(0),
-    });
-  }
-
-  return (
-    <UserLayout>
-      {cardsData.map((card, index) => (
-        <div key={index} className="card mb-3" style={{ marginBottom: '20px' }}>
-          <div className="card-body">
-            <div className="d-flex justify-content-between">
-              <div>
-                <h5 className="card-title">{card.title}</h5>
-                <p className="card-text">{card.text}</p>
-              </div>
-              <div>
-                <div
-                  className="d-flex align-items-center justify-content-center"
-                  style={{ color: 'green' }}
-                >
-                  <h5 className="card-title">{card.budget}</h5>
-                </div>
-                <button
-                  className="btn btn-danger"
-                  style={{ padding: '8px 16px', borderRadius: '4px' }}
-                >
-                  Delete
-                </button>
-              </div>
+  const listMicroJobs = () => {
+    console.log(microTransactions);
+  
+    return (
+      microTransactions &&
+      microTransactions.map((microTransaction) => InstanceOfMicroJob(microTransaction))
+    );
+  };
+  const InstanceOfMicroJob = (microTransaction) => {
+    return (
+      <div key={microTransaction.id} className="card mb-3" style={{ marginBottom: '20px' }}>
+        <div className="card-body">
+          <div className="d-flex justify-content-between">
+            <div>
+              <h5 className="card-title">{microTransaction.label}</h5>
+              <p className="card-text">{microTransaction.description}</p>
             </div>
-          </div>
-          <div className="card-footer">
-            <div className="d-flex justify-content-between">
-              <div>
-                <small className="text-muted">{card.quota}</small>
-                <small className="text-muted">{card.remaining}</small>
+            <div>
+              <div
+                className="d-flex align-items-center justify-content-center"
+                style={{ color: 'green' }}
+              >
+                <h5 className="card-title">{microTransaction.budget} TL </h5>
               </div>
-              <div>
-                <small className="text-muted">Total Earnings: {card.totalEarned}</small>
-              </div>
+   
             </div>
           </div>
         </div>
-      ))}
-    </UserLayout>
-  );
+        <div className="card-footer">
+          <div className="d-flex justify-content-between">
+            <div>
+              <small className="text-muted mx-2">Total Quota: {microTransaction.quota}</small>
+              <small className="text-muted mx-2">
+                Remaining: {(microTransaction.quota - microTransaction.numberDone)}
+              </small>
+            </div>
+            <div>
+              <small className="text-muted">
+                Total Gained Subscription: {microTransaction.numberDone}
+              </small>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return <UserLayout>{listMicroJobs()}</UserLayout>;
 }
 
 export default MyMicroJobsPage;

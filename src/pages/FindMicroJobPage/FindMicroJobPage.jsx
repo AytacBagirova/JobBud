@@ -14,6 +14,27 @@ const FindMicroJobPage = () => {
     dispatch(getMicroTransactions());
   }, []);
 
+  const InstanceOfMicroJobCard = (jobData) => {
+    
+return (
+  <div key={jobData.id} className="card w-100 mb-3">
+    <div className="card-body d-flex justify-content-between">
+      <div>
+        <a href={`microtransactions/${jobData.id}`}>
+          {' '}
+          <h5 className="card-title"> {jobData?.label}</h5>
+        </a>
+        <p className="card-text">{jobData?.description}</p>
+      </div>
+      <div className="text-end">
+        {/* Assume your YouTube channel name is "MyChannel" */}
+        <span className="badge bg-success"> {jobData?.budget / jobData?.quota} TL / per sub.</span>
+      </div>
+    </div>
+    <div className="card-footer"></div>
+  </div>
+);
+  }
   return (
     <UserLayout>
       <h1>FIND MICRO JOB</h1>
@@ -28,7 +49,7 @@ const FindMicroJobPage = () => {
       ) : (
         microtransactions &&
         microtransactions.map((microTransaction) => (
-          <MicroJobCard jobData={microTransaction} withHref={true} />
+          InstanceOfMicroJobCard(microTransaction)
         ))
       )}
     </UserLayout>
