@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWithoutAuth } from '../../api/apiCalls';
 import UserLayout from '../../components/Layout/UserLayout';
 import { createMicroTransaction } from '../../redux/actions/MicroTransactionAction';
+import { findChannelId } from '../../redux/actions/YtApiCodeAction';
 
 const CreateNewMicroTransaction = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [jobBudget, setJobBudget] = useState(0);
   const [microJobQuota, setMicroJobQuota] = useState(0);
-  const { channel } = useSelector((state) => state.ytApiCode);
+  const { channel } = useSelector((state) => state.ytApiChannel);
   const [channelId, setChannelId] = useState("");
-  const channelFromLocalStorage = localStorage.getItem("channelId");
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.userLogin);
   const { microtransaction, error, loading } = useSelector(
@@ -32,25 +32,25 @@ const CreateNewMicroTransaction = () => {
   };
 
   const handleGetYourChannelId = async () => {
+      
     const response = await getWithoutAuth('/api/v1.0/microtransactions/oauth2/youtube/clientUrl');
     window.open(response.data, '_blank', 'noreferrer');
   };
 
-  useEffect(() => {
-    function checkChannelId() {
-      const item = localStorage.getItem("channelId");
+ useEffect(async () => {
+   function checkYtCode() {
+     const item = localStorage.getItem('ytCode');
 
-      if (item) {
-        setChannelId(item);
-      }
-    }
-
-    window.addEventListener("storage", checkChannelId);
-
-    return () => {
-      window.removeEventListener("storage", checkChannelId);
-    };
-  }, []);
+     if (item) {
+       dispatch(findChannelId(item));
+     }
+   }
+   window.addEventListener('storage', checkYtCode);
+  
+   return () => {
+     window.removeEventListener('storage', checkYtCode);
+   };
+ }, []);
   useEffect(() => {
     setChannelId(channel);
   }, [channel]);
@@ -82,7 +82,7 @@ const CreateNewMicroTransaction = () => {
   return (
     <UserLayout>
       <div className="px-4">
-        <h1>Create New Micro Transaction Page</h1>
+        <h1>Create New Micro Transaction</h1>
         {renderTransactionStatus()}
         <div className="form-group">
           <label htmlFor="jobTitle">Job Title</label>
