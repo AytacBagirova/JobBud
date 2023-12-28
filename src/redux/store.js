@@ -1,11 +1,12 @@
 import { applyMiddleware, combineReducers, createStore, compose } from '@reduxjs/toolkit';
 import { thunk } from "redux-thunk";
+import { completeMicroTransaction } from './actions/MicroTransactionAction';
 import { jobCreateReducer, jobListReducer, jobDetailsReducer } from "./reducers/JobReducer";
-import { MicroTransactionCreateReducer, MicroTransactionListReducer } from "./reducers/MicroTransactionReducer";
+import { MicroTransactionCompleteReducer, MicroTransactionCreateReducer, MicroTransactionListReducer, MicroTransactionSingleReducer } from "./reducers/MicroTransactionReducer";
 import { offerCreateReducer, offerListReducer } from './reducers/OfferReducer';
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
 import { getWalletReducer,getWalletHistoryReducer } from './reducers/WalletReducer';
-import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
+import { findChannelReducer, saveCodeReducer } from "./reducers/YtApiCodeReducer";
 
 
 const composeEnhancers =
@@ -22,7 +23,7 @@ const enhancer = composeEnhancers(
 
 const rootReducer = combineReducers({
   userLogin: UserReducer,
-  ytApiCode: YtApiCodeReducer,
+  ytApiChannel: findChannelReducer,
   microTransactionCreate: MicroTransactionCreateReducer,
   userRegister: UserRegisterReducer,
   jobCreate: jobCreateReducer,
@@ -32,7 +33,10 @@ const rootReducer = combineReducers({
   jobList: jobListReducer,
   jobDetails: jobDetailsReducer,
   offerList: offerListReducer,
-  offerCreate:offerCreateReducer
+  offerCreate: offerCreateReducer,
+  ytApiCode: saveCodeReducer,
+  microTransactionSingle: MicroTransactionSingleReducer,
+  completeMicroTransaction: MicroTransactionCompleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

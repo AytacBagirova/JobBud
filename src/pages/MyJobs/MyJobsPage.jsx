@@ -1,19 +1,28 @@
-import React, { useState } from "react";
-import UserLayout from "../../components/Layout/UserLayout";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import UserLayout from '../../components/Layout/UserLayout';
+import { getJobs } from '../../redux/actions/JobAction';
 
 const MyJobsPage = () => {
-  const InstanceOfJob = (id, title, description, budget) => {
+  const { loading, error, jobs } = useSelector((state) => state.jobList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getJobs(''));
+  }, []);
+
+  const InstanceOfJob = (id, label, description, budget) => {
     return (
       <div className="card mb-3">
         <div className="card-body d-flex justify-content-between">
           <div>
-            <h5 className="card-title">{title}</h5>
+            <h5 className="card-title">{label}</h5>
             <p className="card-text">{description}</p>
           </div>
           <div className="text-end">
             <span className="badge bg-success">
               Budget
-              <br /> {budget}
+              <br /> {budget} TL
             </span>
           </div>
         </div>
@@ -26,31 +35,28 @@ const MyJobsPage = () => {
     );
   };
 
-  const listJobs = (jobCount, prefix) => {
+  const listJobs = (status) => {
     let list = [];
-    for (let i = 0; i < jobCount; i++) {
-      const id = `${i + 1}`;
+    const filteredJobs = jobs ? jobs.filter((job) => job.status === status) : [];
+    for (let i = 0; i < filteredJobs.length; i++) {
+      const job = filteredJobs[i];
       list.push(
-        <div className="col-6" key={id}>
-          {InstanceOfJob(
-            id,
-            `Job ${i + 1}`,
-            `Description for Job ${i + 1}`,
-            `500 TL`
-          )}
+        <div className="col-6" key={job.id}>
+          {InstanceOfJob(job.id, job.label, job.description, job.budget)}
         </div>
       );
     }
     return list;
+  
   };
 
-  const activeJobs = listJobs(5, "active");
-  const pendingJobs = listJobs(3, "pending");
-  const completedJobs = listJobs(7, "completed");
+  const activeJobs = listJobs('WAITING_OFFERS');
+  const pendingJobs = listJobs('WAITING_FINISH');
+  const completedJobs = listJobs('FINISHED');
   const sections = [
-    { title: "Active Jobs 🚀", jobs: activeJobs },
-    { title: "In Progress ⌛️", jobs: pendingJobs },
-    { title: "Completed ✅", jobs: completedJobs },
+    { title: 'WAITING FOR OFFERS 🚀', jobs: activeJobs },
+    { title: 'WAITING TO FINISH ⌛️', jobs: pendingJobs },
+    { title: 'COMPLETED ✅', jobs: completedJobs },
   ];
 
   const JobTabs = ({ sections }) => {
@@ -67,7 +73,7 @@ const MyJobsPage = () => {
             <button
               key={index}
               className={`col-3 btn btn-outline-success mx-2 ${
-                activeTab === index ? "active" : ""
+                activeTab === index ? 'active' : ''
               }`}
               onClick={() => changeTab(index)}
             >
@@ -79,9 +85,17 @@ const MyJobsPage = () => {
           <div
             key={index}
             className="w3-container w3-display-container city"
-            style={{ display: activeTab === index ? "block" : "none" }}
+            style={{ display: activeTab === index ? 'block' : 'none' }}
           >
-            <div className="row">{section.jobs}</div>
+            <div className="row">
+              {error ? (
+                <div className="alert alert-danger">{error}</div>
+              ) : loading ? (
+                <div className="alert alert-primary">Loading...</div>
+              ) : (
+                section.jobs
+              )}
+            </div>
           </div>
         ))}
       </div>

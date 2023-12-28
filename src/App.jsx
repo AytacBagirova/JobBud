@@ -19,6 +19,7 @@ import OfferHistoryPage from './pages/OffersPage/OfferHistoryPage';
 
 import ProcessYtApiCode from './pages/ProcessYtApiCode/ProcessYtApiCode';
 import MyWorks from './pages/MyWorks/MyWorks';
+import MicroTransactionDetail from './pages/MicroTransactionDetails/MicroTransactionDetail';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="JobDetails/:id" element={<JobDetailsPage />} />
         <Route path="findmicrojobs" element={<FindMicroJobPage />} />
         <Route path="offerhistory" element={<OfferHistoryPage />} />
+        <Route path="microtransactions/:id" element={<MicroTransactionDetail />} />
         <Route
           path="microtransactions/youtube/code"
           element={<ProcessYtApiCode />}

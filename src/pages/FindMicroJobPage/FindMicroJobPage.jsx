@@ -5,14 +5,14 @@ import MicroJobCard from '../../components/MicroJobCard/MicroJobCard';
 import { getMicroTransactions } from '../../redux/actions/MicroTransactionAction';
 
 const FindMicroJobPage = () => {
-   const microTransactionList = useSelector((state) => state.microTransactionList)
-  const { loading, error, microtransactions } = microTransactionList
+  const microTransactionList = useSelector((state) => state.microTransactionList);
+  const { loading, error, microtransactions } = microTransactionList;
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMicroTransactions())
-  }, [])
+    dispatch(getMicroTransactions());
+  }, []);
 
   return (
     <UserLayout>
@@ -25,13 +25,12 @@ const FindMicroJobPage = () => {
         <div className="alert alert-danger my-2" role="alert">
           We couldn't reach micro transactions. Please try again later.
         </div>
-      ) : 
-(microtransactions && 
-            microtransactions.map((microTransaction) => (
-              <MicroJobCard jobData={microTransaction} />
-            )))
-        
-      }
+      ) : (
+        microtransactions &&
+        microtransactions.map((microTransaction) => (
+          <MicroJobCard jobData={microTransaction} withHref={true} />
+        ))
+      )}
     </UserLayout>
   );
 };

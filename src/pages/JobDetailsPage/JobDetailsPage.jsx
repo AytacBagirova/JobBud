@@ -108,7 +108,7 @@ function JobDetailsPage() {
             </div>
           </div>
         </div>
-
+      )}
     </UserLayout>
   );
 }
