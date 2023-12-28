@@ -3,23 +3,26 @@ import { useParams } from 'react-router-dom';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobDetails } from '../../redux/actions/JobAction';
+import { submitWork } from '../../redux/actions/WorkAction';
 
 function JobDetailsPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userLogin.userInfo);
   const jobDetails = useSelector((state) => state.jobDetails);
-
   const { error, loading, jobInfo } = jobDetails;
-
+  const jobId = id;
+  const workId = 6;
   useEffect(() => {
-    dispatch(getJobDetails(id)); // Assuming jobData.id is needed for fetching job details
+    dispatch(getJobDetails(jobId));
   }, []);
 
-  const [editText, setEditText] = useState('');
-
+  const [workContent, setWorkContent] = useState('');
   const handleSubmit = () => {
-    // Add logic for handling the form submission
+    const completedDate = Date.now();
+    console.log({workId,workContent,completedDate})
+
+    dispatch(submitWork({workId,workContent,completedDate}));
   };
 
   return (
@@ -99,7 +102,8 @@ function JobDetailsPage() {
                 <input
                   type="text"
                   className="form-control"
-                  onChange={(e) => setEditText(e.target.value)}
+                  value={workContent}
+                  onChange={(e) => setWorkContent(e.target.value)}
                 />
               </div>
               <button className="btn btn-primary" onClick={handleSubmit}>
@@ -108,7 +112,7 @@ function JobDetailsPage() {
             </div>
           </div>
         </div>
-
+      )}
     </UserLayout>
   );
 }

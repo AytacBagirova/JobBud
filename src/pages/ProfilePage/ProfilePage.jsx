@@ -1,22 +1,52 @@
 import './ProfilePage.css';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { updateUser } from '../../redux/actions/UserAction';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userLogin.userInfo);
-
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [newUsername, setNewUsername] = useState(userInfo ? userInfo.username : '');
   const [newEmail, setNewEmail] = useState(userInfo ? userInfo.email : '');
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     const userData = {
       username: newUsername,
       email: newEmail,
     };
-    dispatch(updateUser(userData));
+    try {
+      dispatch(updateUser(userData));
+      setShowSuccessAlert(true);
+    } catch (error) {
+      setShowErrorAlert(true);
+    }
   };
+
+  useEffect(() => {
+    if (showSuccessAlert) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Profile Updated Successfully!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setShowSuccessAlert(false);
+    }
+
+    if (showErrorAlert) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Updating Profile',
+        text: 'Please try again later.',
+      });
+      setShowErrorAlert(false);
+    }
+  }, [showSuccessAlert, showErrorAlert]);
 
   return (
     <UserLayout>
