@@ -6,6 +6,7 @@ import { offerCreateReducer, offerListReducer } from './reducers/OfferReducer';
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
 import { getWalletReducer,getWalletHistoryReducer } from './reducers/WalletReducer';
 import { YtApiCodeReducer } from "./reducers/YtApiCodeReducer";
+import { workSubmitReducer } from './reducers/WorkReducer';
 
 
 const composeEnhancers =
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   jobList: jobListReducer,
   jobDetails: jobDetailsReducer,
   offerList: offerListReducer,
-  offerCreate:offerCreateReducer
+  offerCreate:offerCreateReducer,
+  workSubmit: workSubmitReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
