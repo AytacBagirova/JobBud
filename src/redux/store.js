@@ -7,6 +7,8 @@ import { offerCreateReducer, offerListReducer } from './reducers/OfferReducer';
 import { UserReducer, UserRegisterReducer } from "./reducers/UserReducer";
 import { getWalletReducer,getWalletHistoryReducer } from './reducers/WalletReducer';
 import { findChannelReducer, saveCodeReducer } from "./reducers/YtApiCodeReducer";
+import { workSubmitReducer } from './reducers/WorkReducer';
+
 
 
 const composeEnhancers =
@@ -37,6 +39,8 @@ const rootReducer = combineReducers({
   ytApiCode: saveCodeReducer,
   microTransactionSingle: MicroTransactionSingleReducer,
   completeMicroTransaction: MicroTransactionCompleteReducer,
+  workSubmit: workSubmitReducer,
+
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

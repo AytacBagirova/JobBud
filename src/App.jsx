@@ -16,7 +16,7 @@ import JobDetailsPage from './pages/JobDetailsPage/JobDetailsPage';
 import FindMicroJobPage from './pages/FindMicroJobPage/FindMicroJobPage';
 import CreateNewMicroTransaction from './pages/CreateNewMicroTransactionPage/CreateNewMicroTransactionPage';
 import OfferHistoryPage from './pages/OffersPage/OfferHistoryPage';
-
+import MyMicroJobsPage from './pages/MyMicroJobsPage/MyMicroJobsPage';
 import ProcessYtApiCode from './pages/ProcessYtApiCode/ProcessYtApiCode';
 import MyWorks from './pages/MyWorks/MyWorks';
 import MicroTransactionDetail from './pages/MicroTransactionDetails/MicroTransactionDetail';
@@ -41,6 +41,7 @@ function App() {
         <Route path="findmicrojobs" element={<FindMicroJobPage />} />
         <Route path="offerhistory" element={<OfferHistoryPage />} />
         <Route path="microtransactions/:id" element={<MicroTransactionDetail />} />
+        <Route path = "mymicrojobs" element={<MyMicroJobsPage />} />
         <Route
           path="microtransactions/youtube/code"
           element={<ProcessYtApiCode />}

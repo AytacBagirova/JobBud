@@ -27,6 +27,7 @@ const JobCard = ({ jobData }) => {
         <div className="alert alert-danger" role="alert">
           {error}
         </div>
+
       ) : loading ? (
         <div className="alert alert-primary" role="alert">
           Loading...
@@ -124,6 +125,7 @@ const JobCard = ({ jobData }) => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

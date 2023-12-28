@@ -66,10 +66,6 @@ const SidebarMenu = () => {
                 <li>
                   <Link to="/findmicrojobs">Find Micro Jobs</Link>
                 </li>
-
-                <li>
-                  <a href="/mymicrojobs">My micro jobs</a>
-                </li>
               </ul>
             </li>  <li>
           <a href="/offerhistory">Offer History</a>
@@ -115,7 +111,7 @@ const SidebarMenu = () => {
                 </li>
 
                 <li>
-                  <a href="#">My Micro Jobs</a>
+                  <Link to="/mymicrojobs">My Micro Jobs</Link>
                 </li>
               </ul>
             </li>
