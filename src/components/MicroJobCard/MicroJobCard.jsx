@@ -8,7 +8,7 @@ import {
 } from '../../redux/actions/MicroTransactionAction';
 
 const MicroJobCard = (props) => {
-  const { jobData, withButton = false, withHref = false } = props;
+  const { jobData } = props;
   const { id } = useParams();
   const dispatch = useDispatch();
   const [isCompleted, setIsCompleted] = useState(false);
@@ -23,29 +23,36 @@ const MicroJobCard = (props) => {
     const response = await getWithAuth('/api/v1.0/microtransactions/oauth2/youtube/clientUrl');
     window.open(response.data, '_blank', 'noreferrer');
   };
-
-  useEffect(async () => {
-    function checkYtCode() {
+  useEffect(() => {
+    const checkYtCode = () => {
       const item = localStorage.getItem('ytCode');
-
       if (item) {
         dispatch(completeMicroTransaction(item, id));
       }
-    }
+    };
 
     window.addEventListener('storage', checkYtCode);
-    if (withButton) {
-      const response = await getWithAuth(`/api/v1.0/microtransactions/${id}/isCompleted`, {
-        freelancerId: userInfo.id,
-      });
 
-      console.log('🚀 ~ file: MicroJobCard.jsx:41 ~ useEffect ~ response:', response);
-      setIsCompleted(response);
-    }
+    isCompletedCheck();
+
     return () => {
       window.removeEventListener('storage', checkYtCode);
     };
   }, []);
+
+  const isCompletedCheck = async () => {
+    try {
+      const response = await getWithAuth(`/api/v1.0/microtransactions/${id}/isCompleted`, {
+        freelancerId: userInfo.id,
+      });
+      setIsCompleted(response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  useEffect(() => {
+    isCompletedCheck();
+  }, [microtransaction]);
 
   return (
     <>
@@ -56,27 +63,22 @@ const MicroJobCard = (props) => {
           </div>
         ) : loading ? (
           <div className="alert alert-warning my-2" role="alert">
-            Please Wait. Trying to Reach Micro Transactions...
+            Please Wait. We're checking your subscriptions...
           </div>
         ) : (
           microtransaction && (
             <div className="alert alert-success my-2" role="alert">
-              Your subscription is completed.
+              Your subscription proved.
             </div>
           )
         )}
       </div>
-      {isCompleted && (
-        <label className="text-center text-danger">
-          You already completed this micro transaction.
-        </label>
-      )}
+
       <div className="card w-100 mb-3">
         <div className="card-body d-flex justify-content-between">
           <div>
-            <a href={withHref && `/microtransactions/${jobData?.id}`}>
-              <h5 className="card-title"> {jobData?.label}</h5>
-            </a>
+            <h5 className="card-title"> {jobData?.label}</h5>
+
             <p className="card-text">{jobData?.description}</p>
           </div>
           <div className="text-end">
@@ -88,7 +90,7 @@ const MicroJobCard = (props) => {
           </div>
         </div>
         <div className="card-footer">
-          {withButton && !isCompleted ? (
+          {!isCompleted ? (
             <>
               <div className="btn btn-outline-teal mx-2" onClick={handleSubscribeButton}>
                 Subscribe
@@ -98,7 +100,9 @@ const MicroJobCard = (props) => {
               </div>
             </>
           ) : (
-            ''
+            <label className="text-center text-danger">
+              You already completed this micro transaction.
+            </label>
           )}
         </div>
       </div>

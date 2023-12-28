@@ -34,6 +34,22 @@ export const jobListReducer = (state = {}, action) => {
   }
 };
 
+export const myJobListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.JOB_FILTER_REQUEST:
+      return { loading: true };
+
+    case types.JOB_FILTER_SUCCESS:
+      return { loading: false, jobs: action.payload };
+
+    case types.JOB_FILTER_FAILURE:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};
+
 export const jobDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case types.JOB_DETAILS_REQUEST:

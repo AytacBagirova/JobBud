@@ -10,7 +10,7 @@ const UserHeader = () => {
           className=" text-light rounded"
           style={{ backgroundColor: '#138496' }}
         >
-          <i className="fas fa-align-left"></i>
+          🍔
           <span>Toggle Sidebar</span>
         </button>
         <button
@@ -22,7 +22,7 @@ const UserHeader = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i className="fas fa-align-justify"></i>
+          🍔
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">

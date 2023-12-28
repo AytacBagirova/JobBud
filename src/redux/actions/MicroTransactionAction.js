@@ -37,39 +37,43 @@ export const createMicroTransaction = (body) => async (dispatch) => {
     });
   }
 };
-export const getMicroTransactions= () => async (dispatch) => {
-  try {
-    dispatch({
-      type: MICRO_TRANSACTION_LIST_REQUEST,
-    });
+export const getMicroTransactions =
+  (ownerId = null) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: MICRO_TRANSACTION_LIST_REQUEST,
+      });
 
-    const response = await getWithAuth('/api/v1.0/microtransactions');
-    console.log("🚀 ~ file: MicroTransactionAction.js:42 ~ getMicroTransactions ~ response:", response)
-    const data = response.data;
-    dispatch({
-      type: MICRO_TRANSACTION_LIST_SUCCESS,
-      payload: [ ...data],
-    });
-  } catch (error) {
-    dispatch({
-      type: MICRO_TRANSACTION_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message ? error.response.data.message : error.message,
-    });
-  }
-};
-export const getMicroTransaction= (id) => async (dispatch) => {
+      let response = null;
+      if (ownerId != null) response = await getWithAuth('/api/v1.0/microtransactions', { ownerId });
+      else response = await getWithAuth('/api/v1.0/microtransactions');
+      const data = response.data;
+      dispatch({
+        type: MICRO_TRANSACTION_LIST_SUCCESS,
+        payload: [...data],
+      });
+    } catch (error) {
+      dispatch({
+        type: MICRO_TRANSACTION_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+export const getMicroTransaction = (id) => async (dispatch) => {
   try {
     dispatch({
       type: MICRO_TRANSACTION_GET_SINGLE_FAIL,
     });
 
     const response = await getWithAuth(`/api/v1.0/microtransactions/${id}`);
-    console.log("🚀 ~ file: MicroTransactionAction.js:42 ~ getMicroTransactions ~ response:", response)
     const data = response.data;
     dispatch({
       type: MICRO_TRANSACTION_GET_SINGLE_SUCCESS,
-      payload:  {...data},
+      payload: { ...data },
     });
   } catch (error) {
     dispatch({
@@ -99,7 +103,6 @@ export const completeMicroTransaction =
           data,
         },
       });
-
     } catch (error) {
       dispatch({
         type: MICRO_TRANSACTION_COMPLETE_FAIL,

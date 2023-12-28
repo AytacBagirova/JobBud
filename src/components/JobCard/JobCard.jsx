@@ -27,7 +27,6 @@ const JobCard = ({ jobData }) => {
         <div className="alert alert-danger" role="alert">
           {error}
         </div>
-
       ) : loading ? (
         <div className="alert alert-primary" role="alert">
           Loading...
@@ -40,7 +39,7 @@ const JobCard = ({ jobData }) => {
         )
       )}
       <br />
-      <div className="card w-100 mb-3">
+      <div className="card w-100 ">
         <div className="card-body d-flex justify-content-between">
           <div>
             <h5 className="card-title">{jobData.label}</h5>
@@ -64,7 +63,9 @@ const JobCard = ({ jobData }) => {
                 Make Offer
               </a>
             </div>
-            <div className="col-6">Owner Username: {jobData.ownerUsername}</div>
+            <div className="col-6 pt-2 ms-auto text-end">
+              Owner:<b> {jobData.jobOwnerUsername}</b>
+            </div>
           </div>{' '}
           <div
             class="modal fade"
@@ -125,7 +126,6 @@ const JobCard = ({ jobData }) => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

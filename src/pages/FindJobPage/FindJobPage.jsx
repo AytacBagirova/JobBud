@@ -5,9 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getJobs } from '../../redux/actions/JobAction';
 import JobCard from '../../components/JobCard/JobCard';
 
-
 function FindJobPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
   const filteredJobs = useSelector((state) => state.jobList);
   const { jobs, loading, error } = filteredJobs;
@@ -16,19 +15,17 @@ function FindJobPage() {
     dispatch(getJobs(searchQuery));
   };
 
-
-   useEffect(() => {
-
+  useEffect(() => {
     dispatch(getJobs(''));
-  }, [])
-  
- const listJobs = () => {
-  return jobs && jobs.length > 0 ? (
-    jobs.map((job) => <JobCard key={job.id} jobData={job} />)
-  ) : (
-    <p>We couldn't find any job about your search</p>
-  );
-};
+  }, []);
+
+  const listJobs = () => {
+    return jobs && jobs.length > 0 ? (
+      jobs.map((job) => <JobCard key={job.id} jobData={job} />)
+    ) : (
+      <p>We couldn't find any job about your search</p>
+    );
+  };
 
   return (
     <UserLayout>
@@ -46,10 +43,7 @@ function FindJobPage() {
               />
             </div>
             <div className="col-3">
-              <div
-                className="btn btn-outline-teal w-auto"
-                onClick={handleSearchButton}
-              >
+              <div className="btn btn-outline-teal w-auto" onClick={handleSearchButton}>
                 Search It 🔎
               </div>
             </div>

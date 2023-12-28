@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobDetails } from '../../redux/actions/JobAction';
-import { submitWork } from '../../redux/actions/WorkAction';
+import OfferListOfJob from '../../components/OfferListOfJob/OfferListOfJob';
+import Work from '../../components/Work/Work';
 
 function JobDetailsPage() {
   const { id } = useParams();
@@ -12,18 +13,10 @@ function JobDetailsPage() {
   const jobDetails = useSelector((state) => state.jobDetails);
   const { error, loading, jobInfo } = jobDetails;
   const jobId = id;
-  const workId = 6;
   useEffect(() => {
     dispatch(getJobDetails(jobId));
   }, []);
 
-  const [workContent, setWorkContent] = useState('');
-  const handleSubmit = () => {
-    const completedDate = Date.now();
-    console.log({workId,workContent,completedDate})
-
-    dispatch(submitWork({workId,workContent,completedDate}));
-  };
 
   return (
     <UserLayout>
@@ -50,69 +43,19 @@ function JobDetailsPage() {
                 <div className="text-end d-flex align-items-center"></div>
               </div>
             </div>
-            {/* Offer Card for Freelancer */}
-            {userInfo.userType === 'FREELANCER' && (
-              <div className="card mt-4">
-                <div className="card-body">
-                  <h5 className="card-title">Offer Details</h5>
-                  <p className="card-text">Offer Amount</p>
-                  {userInfo.userType === 'FREELANCER' ? (
-                    <div className="d-flex justify-content-start">
-                      <br />
-                      Status = {jobInfo.status}
-                    </div>
-                  ) : (
-                    <div className="card-footer d-flex justify-content-end">
-                      <a className="btn btn-success">Accept</a>
-                      <a className="btn btn-danger mx-2">Reject</a>
-                    </div>
-                  )}
-                  <br />
-                </div>
-              </div>
-            )}
+          
+                <OfferListOfJob job={jobInfo}></OfferListOfJob>
+     <Work jobId={id}></Work>
+                
 
-            {/* Offer Card for Customer */}
-            {userInfo.userType === 'CUSTOMER' && (
-              <div className="card mt-4">
-                <div className="card-body">
-                  <h5 className="card-title">Offer Details</h5>
-                  <p className="card-text">Offer Amount: $20</p>
-                  <div className="card-footer d-flex justify-content-end">
-                    <button className="btn btn-success">Accept</button>
-                    <button className="btn btn-danger mx-2">Reject</button>
-                  </div>
-                </div>
-              </div>
-            )}
+
           </div>
         </div>
       ) : (
         ""
       )}
       <br />
-      {userInfo.userType === 'FREELANCER' && (
-        <div className="card">
-          <div className="card-body d-flex justify-content-between">
-            <div>
-              <div className="mb-3">
-                <label htmlFor="editText" className="form-label">
-                  Project:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={workContent}
-                  onChange={(e) => setWorkContent(e.target.value)}
-                />
-              </div>
-              <button className="btn btn-primary" onClick={handleSubmit}>
-                Submit Project
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+  
     </UserLayout>
   );
 }
