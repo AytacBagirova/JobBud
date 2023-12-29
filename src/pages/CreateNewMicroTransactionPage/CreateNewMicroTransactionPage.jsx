@@ -34,15 +34,18 @@ const CreateNewMicroTransaction = () => {
     window.open(response.data, '_blank', 'noreferrer');
   };
 
+  
   useEffect(() => {
-    const fetchData = async () => {
-      function checkYtCode() {
-        const item = localStorage.getItem('ytCode');
+    const checkYtCode = () => {
+      const item = localStorage.getItem('ytCode');
 
-        if (item) {
-          dispatch(findChannelId(item));
-        }
+      if (item) {
+        dispatch(findChannelId(item));
       }
+    };
+
+    const fetchData = async () => {
+      checkYtCode(); // İlk kontrolü burada yapabilirsiniz.
 
       window.addEventListener('storage', checkYtCode);
     };
