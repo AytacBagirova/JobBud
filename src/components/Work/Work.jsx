@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { completeWorkAction, getWorkAction } from '../../redux/actions/WorkAction';
+import { completeWorkAction, getWorkAction, workChangeStatus } from '../../redux/actions/WorkAction';
 
-const Work = ({ jobId }) => {
+const Work = ({ job }) => {
+  const jobId = job.id
+  
   const [workContent, setWorkContent] = useState('');
   const userInfo = useSelector((state) => state.userLogin.userInfo);
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const Work = ({ jobId }) => {
     error: workError,
     work: completeWork,
   } = useSelector((state) => state.workComplete);
+   const { loading: loadingWorkChange, error: errorWorkChange } = useSelector(
+     (state) => state.workChangeStatus
+   );
 
   useEffect(() => {
     dispatch(getWorkAction(jobId));
@@ -38,8 +43,10 @@ const Work = ({ jobId }) => {
 
 
   const handleWorkAccept = (workId) => {
+     dispatch(workChangeStatus(workId, 'APPROVED'));
   }
   const handleWorkReject = (workId) => {
+     dispatch(workChangeStatus(workId, 'REJECTED'));
   }
 
   return (
@@ -51,15 +58,15 @@ const Work = ({ jobId }) => {
       ) : loading ? (
         'Loading...'
       ) : work ? (
-        work.workerId === userInfo.id || jobId === userInfo.id ? (
+        work.workerId === userInfo.id || job.jobOwnerId === userInfo.id ? (
           <div className="card mt-4 ">
             <div className="card-body">
               <h4 className="text-center">Work</h4>
-              {workError ? (
+              {workError || errorWorkChange ? (
                 <div className="alert alert-danger my-2" role="alert">
-                  {workError}
+                  {workError || errorWorkChange}
                 </div>
-              ) : loadingWork ? (
+              ) : loadingWork || loadingWorkChange ? (
                 'Loading...'
               ) : completeWork ? (
                 <div className="alert alert-success my-2" role="alert">
@@ -89,22 +96,29 @@ const Work = ({ jobId }) => {
                   >
                     Submit Project
                   </button>
-                ) : job.jobOwnerId === userInfo.id && (
-                  <div className="py-4">
-                    {work.status === 'WAITING_APPROVE' && (
-                      <>
-                        <button className="btn btn-success" onClick={() => handleWorkAccept(work.id)}>
-                          Accept
-                        </button>
-                        <button
-                          className="btn btn-danger mx-2"
-                          onClick={() => handleWorkReject(work.id)}
-                        >
-                          Reject
-                        </button>
-                      </>
-                    )}
-                  </div>
+                ) : (
+                  job.jobOwnerId == userInfo.id && (
+                    <div className="py-4">
+                      {work.status === 'WAITING_APPROVE' ? (
+                        <>
+                          <button
+                            className="btn btn-success"
+                            onClick={() => handleWorkAccept(work.id)}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className="btn btn-danger mx-2"
+                            onClick={() => handleWorkReject(work.id)}
+                          >
+                            Reject
+                          </button>
+                        </>
+                      ) : (
+                        <div className="border p-3 justify-content-center bg-teal text-white">{work.status}</div>
+                      )}
+                    </div>
+                  )
                 )}
               </div>
             </div>
