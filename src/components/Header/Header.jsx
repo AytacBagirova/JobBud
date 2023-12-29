@@ -8,24 +8,8 @@ const Header = () => {
   const user = useSelector((state) => state.userLogin);
   const currentUser = useMemo(() => user?.userInfo, [user]);
 
-  const renderFindText = () => {
-    if (currentUser) {
-      return (
-        <li className="nav-item">
-          <a className="nav-link" href="/findjob" style={{ color: '#ffffff' }}>
-            Find Job
-          </a>
-        </li>
-      );
-    }
-    return (
-      <li className="nav-item">
-        <a className="nav-link" href="/findfreelancer" style={{ color: '#ffffff' }}>
-          Find Freelancer
-        </a>
-      </li>
-    );
-  };
+ 
+  
 
   const renderHeaderActions = () => {
     if (currentUser) {
@@ -41,26 +25,8 @@ const Header = () => {
               My Jobs
             </a>
           </li>
-          <li className="nav-item profile">
-            <NavLink
-              className="nav-link"
-              style={{ color: '#ffffff' }}
-              onClick={() => setOpen(!open)}
-            >
-              User
-            </NavLink>
-            {open && (
-              <div className="options">
-                <div className="pendingAmount">Pending: 96TL</div>
-                <div className="amount">Amount: 16TL</div>
-                <hr />
-                <a href="/profile">Edit Profile</a>
-                <hr className="text-dark" />
-
-                <a href="/">Logout</a>
-              </div>
-            )}
-          </li>
+        
+          
         </ul>
       );
     }
@@ -99,7 +65,7 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">{renderFindText()}</ul>
+       
             {renderHeaderActions()}
           </div>
         </div>

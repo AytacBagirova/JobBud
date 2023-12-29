@@ -6,15 +6,15 @@ import { makeOffer } from '../../redux/actions/OfferAction';
 const JobCard = ({ jobData }) => {
   const userState = useSelector((state) => state.userLogin);
   const { userInfo } = userState;
-  const offerCreateState = useSelector((state) => state.offerCreate);
-  const { error, loading, offerDetail } = offerCreateState;
-  const [offerPrice, setOfferPrice] = useState(0);
+
+  const [offerPrice, setOfferPrice] = useState(jobData.budget + 1);
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
   const handleMakeOffer = () => {
     if (jobData.budget >= offerPrice) {
       alert('Your offer price must be higher than budget');
     } else {
+      console.log(jobData.id);
       dispatch(
         makeOffer({ price: offerPrice, description, jobId: jobData.id, ownerId: userInfo.id })
       );
@@ -23,21 +23,6 @@ const JobCard = ({ jobData }) => {
   return (
     <div>
       {' '}
-      {error ? (
-        <div className="alert alert-danger" role="alert">
-          {error}
-        </div>
-      ) : loading ? (
-        <div className="alert alert-primary" role="alert">
-          Loading...
-        </div>
-      ) : (
-        offerDetail && (
-          <div className="alert alert-success" role="alert">
-            Offer Created!
-          </div>
-        )
-      )}
       <br />
       <div className="card w-100 ">
         <div className="card-body d-flex justify-content-between">

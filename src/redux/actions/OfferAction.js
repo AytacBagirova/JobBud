@@ -1,4 +1,4 @@
-import { getWithAuth, putWithAuth } from "../../api/apiCalls";
+import { getWithAuth, postWithAuth, putWithAuth } from "../../api/apiCalls";
 import { OFFER_CHANGE_STATUS_FAIL, OFFER_CHANGE_STATUS_REQUEST, OFFER_CHANGE_STATUS_SUCCESS, OFFER_CREATE_FAIL, OFFER_CREATE_REQUEST, OFFER_CREATE_SUCCESS, OFFER_LIST_FAIL, OFFER_LIST_REQUEST, OFFER_LIST_SUCCESS, OFFER_SPECIFIC_LIST_FAIL, OFFER_SPECIFIC_LIST_REQUEST, OFFER_SPECIFIC_LIST_SUCCESS } from "../../constants/OfferConstants";
 
 export const getOffers= () => async (dispatch,getState) => {
@@ -47,6 +47,7 @@ export const getSpesificOffers = (jobId) => async (dispatch, getState) => {
 
 
 export const makeOffer = (body) => async (dispatch) => {
+  console.log("🚀 ~ file: OfferAction.js:50 ~ makeOffer ~ body:", body)
   try {
     dispatch({
       type: OFFER_CREATE_REQUEST,

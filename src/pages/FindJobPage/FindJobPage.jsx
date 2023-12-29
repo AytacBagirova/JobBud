@@ -10,6 +10,8 @@ function FindJobPage() {
   const dispatch = useDispatch();
   const filteredJobs = useSelector((state) => state.jobList);
   const { jobs, loading, error } = filteredJobs;
+  const offerCreateState = useSelector((state) => state.offerCreate);
+  const { error: offerCreateError, loading: offerCreateLoading, offerDetail } = offerCreateState;
 
   const handleSearchButton = () => {
     dispatch(getJobs(searchQuery));
@@ -50,6 +52,21 @@ function FindJobPage() {
           </div>
         </div>
       </div>
+      {offerCreateError ? (
+        <div className="alert alert-danger" role="alert">
+          {offerCreateError}
+        </div>
+      ) : offerCreateLoading ? (
+        <div className="alert alert-primary" role="alert">
+          Loading...
+        </div>
+      ) : (
+        offerDetail && (
+          <div className="alert alert-success" role="alert">
+            Offer Created!
+          </div>
+        )
+      )}
       {error ? (
         <div className="alert alert-danger">{error}</div>
       ) : loading ? (
