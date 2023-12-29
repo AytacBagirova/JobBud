@@ -45,7 +45,7 @@ function JobDetailsPage() {
             </div>
           
                 <OfferListOfJob job={jobInfo}></OfferListOfJob>
-     <Work jobId={id}></Work>
+     <Work job={jobInfo}></Work>
                 
 
 

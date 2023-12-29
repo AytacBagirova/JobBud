@@ -12,7 +12,7 @@ const OfferListOfJob = ({ job }) => {
 
   useEffect(() => {
     dispatch(getSpesificOffers(job.id));
-  }, [dispatch, job.id]);
+  }, [dispatch, job.id, loadingOfferChange]);
 
   const handleAccept = (offerId) => {
     dispatch(offerChangeStatus(offerId, 'ACCEPTED'));

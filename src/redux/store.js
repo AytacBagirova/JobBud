@@ -24,6 +24,7 @@ import { getWalletReducer, getWalletHistoryReducer } from './reducers/WalletRedu
 import { findChannelReducer, saveCodeReducer } from './reducers/YtApiCodeReducer';
 import { getMyWorksReducer, getWorkReducer, workCompleteReducer } from './reducers/WorkReducer';
 import { getWorkAction } from './actions/WorkAction';
+import { workChangeStatusReducer } from '../constants/WorkConstants';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -59,6 +60,7 @@ const rootReducer = combineReducers({
   spesificOfferList: offerSpesificListReducer,
   workDetail: getWorkReducer,
   offerChangeStatus: offerChangeStatusReducer,
+  workChangeStatus: workChangeStatusReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

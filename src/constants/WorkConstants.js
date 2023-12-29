@@ -12,3 +12,23 @@ export const GET_WORK_SUCCESS = 'GET_WORK_SUCCESS';
 export const GET_WORK_FAIL = 'GET_WORK_FAIL';
 
 
+export const WORK_CHANGE_STATUS_REQUEST = 'WORK_CHANGE_STATUS_REQUEST';
+export const WORK_CHANGE_STATUS_SUCCESS = 'WORK_CHANGE_STATUS_SUCCESS';
+export const WORK_CHANGE_STATUS_FAIL = 'WORK_CHANGE_STATUS_FAIL';
+
+
+export const workChangeStatusReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WORK_CHANGE_STATUS_REQUEST:
+      return { loading: true };
+
+    case WORK_CHANGE_STATUS_SUCCESS:
+      return { loading: false, work: action.payload };
+
+    case WORK_CHANGE_STATUS_FAIL:
+      return { loading: false, error: action.payload };
+
+    default:
+      return state;
+  }
+};

@@ -8,12 +8,15 @@ import {
   GET_WORK_REQUEST,
   GET_WORK_SUCCESS,
   GET_WORK_FAIL,
+  WORK_CHANGE_STATUS_REQUEST,
+  WORK_CHANGE_STATUS_SUCCESS,
+  WORK_CHANGE_STATUS_FAIL,
 } from '../../constants/WorkConstants';
 import { getWithAuth, putWithAuth } from '../../api/apiCalls';
 
 export const completeWorkAction = (workId, workContent) => async (dispatch) => {
-  console.log("🚀 ~ file: WorkAction.js:15 ~ completeWorkAction ~ workId:", workId)
-  console.log("🚀 ~ file: WorkAction.js:15 ~ completeWorkAction ~ workContent:", workContent)
+  console.log('🚀 ~ file: WorkAction.js:15 ~ completeWorkAction ~ workId:', workId);
+  console.log('🚀 ~ file: WorkAction.js:15 ~ completeWorkAction ~ workContent:', workContent);
   try {
     dispatch({ type: WORK_SUBMIT_REQUEST });
     const response = await putWithAuth(`/api/v1.0/works/${workId}`, {
@@ -59,7 +62,7 @@ export const getMyWorks = (status) => async (dispatch, getState) => {
     });
   }
 };
-export const getWorkAction = ( jobId) => async (dispatch) => {
+export const getWorkAction = (jobId) => async (dispatch) => {
   try {
     dispatch({ type: GET_WORK_REQUEST });
     const response = await getWithAuth('/api/v1.0/works/detail', {
@@ -78,6 +81,31 @@ export const getWorkAction = ( jobId) => async (dispatch) => {
         error.response && error.response.data && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+export const workChangeStatus = (workId, newStatus) => async (dispatch) => {
+  try {
+    dispatch({
+      type: WORK_CHANGE_STATUS_REQUEST,
+    });
+
+    const response = await putWithAuth(`/api/v1.0/works/${workId}/status`, {
+      status: newStatus,
+    });
+    const data = response.data;
+
+    dispatch({
+      type: WORK_CHANGE_STATUS_SUCCESS,
+      payload: {
+        ...data,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: WORK_CHANGE_STATUS_FAIL,
+      payload:
+        error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
