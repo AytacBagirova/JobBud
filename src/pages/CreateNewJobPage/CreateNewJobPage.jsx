@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import './CreateNewJobPage.css'; // Import your CSS file
+import React, { useState } from 'react';
+import './CreateNewJobPage.css';
 import UserLayout from '../../components/Layout/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { createJob } from '../../redux/actions/JobAction';
@@ -11,17 +11,23 @@ const CreateNewJobPage = () => {
   const [jobDeadline, setJobDeadline] = useState('');
   const dispatch = useDispatch();
 
-  const createdJob = useSelector((state) => state.jobCreate)
-  const {error,job,loading}=createdJob
-  const handleFormSent = () => {
-     const selectedDateTime = new Date(jobDeadline);
-     const jobDeadline_timestamp = selectedDateTime.getTime();
+  const createdJob = useSelector((state) => state.jobCreate);
+  const { error, job, loading } = createdJob;
+
+  const handleFormSubmit = () => {
+    if (!jobTitle || !jobDescription || !jobBudget || !jobDeadline) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    const selectedDateTime = new Date(jobDeadline);
+    const jobDeadline_timestamp = selectedDateTime.getTime();
     const jobData = {
       jobTitle,
       jobDescription,
       jobBudget,
       jobDeadline_timestamp,
     };
+
     console.log('Job Data:', jobData); // debugging
     dispatch(createJob(jobData));
   };
@@ -31,19 +37,19 @@ const CreateNewJobPage = () => {
       <div className="job-form-container">
         <h1>Create New Job Page</h1>
         {error ? (
-          <div class="alert alert-danger my-2" role="alert">
+          <div className="alert alert-danger my-2" role="alert">
             {error}
           </div>
         ) : loading ? (
-          <div class="alert alert-primary my-2" role="alert">
+          <div className="alert alert-primary my-2" role="alert">
             Request is sending
           </div>
         ) : job ? (
-          <div class="alert alert-success my-2" role="alert">
-            Job succesfully created!
+          <div className="alert alert-success my-2" role="alert">
+            Job successfully created!
           </div>
         ) : (
-          ""
+          ''
         )}
 
         <div className="form-group">
@@ -90,9 +96,9 @@ const CreateNewJobPage = () => {
           />
         </div>
 
-        <div className="btn btn-success" onClick={handleFormSent}>
+        <button className="btn btn-success" onClick={handleFormSubmit}>
           Create New Job
-          </div>
+        </button>
       </div>
     </UserLayout>
   );

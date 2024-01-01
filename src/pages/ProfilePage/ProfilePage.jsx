@@ -15,6 +15,16 @@ const ProfilePage = () => {
   const [newEmail, setNewEmail] = useState(userInfo ? userInfo.email : '');
 
   const handleUpdate = async () => {
+    
+    if (!newUsername || !newEmail) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Error',
+        text: 'Please fill out all fields.',
+      });
+      return;
+    }
+
     const userData = {
       username: newUsername,
       email: newEmail,
@@ -56,7 +66,6 @@ const ProfilePage = () => {
             <h3 className='text-center'>Edit Your Profile</h3>
             <div className="profile-description">
               <h3>{userInfo?.username || 'Guest'}</h3>
-              <p>Freelancer with 10 years of experience in mobile development</p>
             </div>
             <label>Username</label>
             <input
