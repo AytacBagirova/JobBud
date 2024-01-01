@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { login } from '../../redux/actions/UserAction';
@@ -8,12 +7,13 @@ import './Login.css';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const userLogin = useSelector((state) => state.userLogin);
+  const [errors, setErrors] = useState({});
 
+  const userLogin = useSelector((state) => state.userLogin);
   const history = useNavigate();
   const dispatch = useDispatch();
-
   const { error, loading, userInfo } = userLogin;
+
   useEffect(() => {
     if (userInfo) {
       history('/profile');
@@ -21,7 +21,19 @@ function Login() {
   }, [history, userInfo]);
 
   const handleSignIn = () => {
-    dispatch(login(username, password));
+    const validationErrors = {};
+    if (!username.trim()) {
+      validationErrors.username = 'Username is required';
+    }
+    if (!password.trim()) {
+      validationErrors.password = 'Password is required';
+    }
+
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(login(username, password));
+    } else {
+      setErrors(validationErrors);
+    }
   };
 
   return (
@@ -43,23 +55,35 @@ function Login() {
                   </span>
                   <input
                     type="text"
-                    className="form-control"
+                    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                     placeholder="Username"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      setErrors({ ...errors, username: '' });
+                    }}
                   />
+                  {errors.username && (
+                    <div className="invalid-feedback">{errors.username}</div>
+                  )}
                 </div>
 
                 <div className="input-group mb-3">
                   <input
                     type="password"
-                    className="form-control"
+                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setErrors({ ...errors, password: '' });
+                    }}
                   />
+                  {errors.password && (
+                    <div className="invalid-feedback">{errors.password}</div>
+                  )}
                 </div>
                 <center>
                   &nbsp;

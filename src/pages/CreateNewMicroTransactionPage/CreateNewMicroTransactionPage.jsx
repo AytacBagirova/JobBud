@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getWithoutAuth } from '../../api/apiCalls';
+import React, { useEffect, useState } from 'react';
 import UserLayout from '../../components/Layout/UserLayout';
+import { useDispatch, useSelector } from 'react-redux';
 import { createMicroTransaction } from '../../redux/actions/MicroTransactionAction';
 import { findChannelId } from '../../redux/actions/YtApiCodeAction';
+import { getWithoutAuth } from '../../api/apiCalls';
 
 const CreateNewMicroTransaction = () => {
   const [jobTitle, setJobTitle] = useState('');
@@ -17,6 +17,10 @@ const CreateNewMicroTransaction = () => {
   const { microtransaction, error, loading } = useSelector((state) => state.microTransactionCreate);
 
   const handleFormSent = () => {
+    if (!jobTitle || !jobDescription || !jobBudget || !microJobQuota || !channelId) {
+      alert('Please fill in all fields.');
+      return;
+    }
     const data = {
       label: jobTitle,
       description: jobDescription,
@@ -34,7 +38,6 @@ const CreateNewMicroTransaction = () => {
     window.open(response.data, '_blank', 'noreferrer');
   };
 
-  
   useEffect(() => {
     const checkYtCode = () => {
       const item = localStorage.getItem('ytCode');
@@ -45,7 +48,7 @@ const CreateNewMicroTransaction = () => {
     };
 
     const fetchData = async () => {
-      checkYtCode(); // İlk kontrolü burada yapabilirsiniz.
+      checkYtCode(); // Initial check can be done here.
 
       window.addEventListener('storage', checkYtCode);
     };
@@ -115,18 +118,18 @@ const CreateNewMicroTransaction = () => {
         <div className="form-group">
           <label htmlFor="jobBudget">Job Budget</label>
           <input
-            type="text"
+            type="number"
             id="jobBudget"
             name="jobBudget"
             value={jobBudget}
             onChange={(e) => setJobBudget(e.target.value)}
             className="form-control"
           />
-        </div>{' '}
+        </div>
         <div className="form-group">
-          <label htmlFor="jobBudget">Job Quota</label>
+          <label htmlFor="microJobQuota">Job Quota</label>
           <input
-            type="text"
+            type="number"
             value={microJobQuota}
             onChange={(e) => setMicroJobQuota(e.target.value)}
             className="form-control"
@@ -135,7 +138,7 @@ const CreateNewMicroTransaction = () => {
         <div className="row">
           <div className="col-9">
             <div className="form-group">
-              <label htmlFor="jobBudget">Channel Id</label>
+              <label htmlFor="channelId">Channel Id</label>
               <input
                 type="text"
                 value={channelId}

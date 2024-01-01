@@ -9,6 +9,10 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('FREELANCER');
+  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   const userRegister = useSelector((state) => state.userRegister);
   const { error, userInfo } = userRegister;
   const history = useNavigate();
@@ -20,9 +24,35 @@ function Register() {
   }, [history, userInfo]);
 
   const dispatch = useDispatch();
+
   const handleRegister = () => {
-    dispatch(register({username, email, password, userType}));
+    setUsernameError('');
+    setEmailError('');
+    setPasswordError('');
+
+    // Validate username
+    if (!username.trim()) {
+      setUsernameError('Username is required');
+      return;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim() || !emailRegex.test(email)) {
+      setEmailError('Valid email is required');
+      return;
+    }
+
+    // Validate password
+    if (!password.trim()) {
+      setPasswordError('Password is required');
+      return;
+    }
+
+    // Dispatch registration if all validations pass
+    dispatch(register({ username, email, password, userType }));
   };
+
   return (
     <>
       <div className="d-flex justify-content-center">
@@ -42,7 +72,7 @@ function Register() {
                   </span>
                   <input
                     type="text"
-                    className="form-control"
+                    className={`form-control ${usernameError && 'is-invalid'}`}
                     placeholder="Username"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
@@ -50,24 +80,27 @@ function Register() {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                   />
+                  {usernameError && <div className="invalid-feedback">{usernameError}</div>}
                 </div>
                 <div className="input-group mb-3">
                   <input
                     type="text"
-                    className="form-control"
+                    className={`form-control ${emailError && 'is-invalid'}`}
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {emailError && <div className="invalid-feedback">{emailError}</div>}
                 </div>
                 <div className="input-group mb-3">
                   <input
                     type="password"
-                    className="form-control"
+                    className={`form-control ${passwordError && 'is-invalid'}`}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  {passwordError && <div className="invalid-feedback">{passwordError}</div>}
                 </div>
                 <label>Choose your account type</label>
                 <div className="category-container">
