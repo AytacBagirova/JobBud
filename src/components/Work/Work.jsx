@@ -134,3 +134,6 @@ const Work = ({ job }) => {
 };
 
 export default Work;
+
+
+// work accept reject edildikten sonra mesaj don
