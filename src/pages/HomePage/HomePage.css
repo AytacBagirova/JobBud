@@ -1,38 +1,42 @@
-body,
-h1,
-h2,
-p {
-  margin: 0;
-  padding: 0;
-}
-
-.header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-
 .layout-container {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+.home-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #95c3f041;
+  border-radius: 80px;
+  box-shadow: 0 0 0 1px rgba(218, 218, 218, 0.1), 0 10px 10px 10px rgba(186, 186, 186, 0.2);
 }
 
 .hero-section {
-  text-align: center;
-  padding: 50px 0;
-  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 700px;
+  padding: 20px;
 }
 
 .hero-title {
-  font-size: 2em;
-  color: #333;
+  font-size: 4.5em;
+  background: linear-gradient(45deg, #610adb, #c80099, #ed5b55, #7570b7);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
+
 .hero-subtitle {
-  font-size: 1.2em;
-  color: #666;
-  margin-top: 10px;
+  margin-top: 20px;
+  font-size: 2em;
+  color: #2c3e50;
+  font-weight: 700;
 }
 
 .featured-section {
@@ -40,25 +44,72 @@ p {
 }
 
 .section-title {
-  font-size: 1.5em;
+  font-size: 1.8em;
   color: #333;
 }
 
-.how-it-works-section {
-  padding: 40px 0;
-  background-color: #f5f5f5;
-}
-
 .slick-slider {
-  margin: 0 -15px;
+  margin: 0 -10px;
 }
 
 .carousel-item {
-  padding: 0 15px;
+  padding: 0 10px;
   text-align: center;
 }
 
 .carousel-item img {
   width: 100%;
+  max-width: 100%;
   border-radius: 8px;
+}
+
+.home-container {
+  text-align: center;
+  margin: 20px;
+}
+
+.typewriter-container {
+  margin-top: 20px;
+}
+
+.typewriter-text {
+  font-size: 20px;
+}
+
+.join-us-button {
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.join-us-button:after {
+  content: "";
+  background-color: #ffe54c;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+
+.join-us-button:hover:after {
+  top: 0px;
+  left: 0px;
+}
+
+@media (min-width: 768px) {
+  .join-us-button {
+    padding: 13px 50px 13px;
+  }
 }

@@ -105,6 +105,3 @@ const CreateNewJobPage = () => {
 };
 
 export default CreateNewJobPage;
-
-
-//buget min 

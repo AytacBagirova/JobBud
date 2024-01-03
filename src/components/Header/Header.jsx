@@ -8,9 +8,6 @@ const Header = () => {
   const user = useSelector((state) => state.userLogin);
   const currentUser = useMemo(() => user?.userInfo, [user]);
 
- 
-  
-
   const renderHeaderActions = () => {
     if (currentUser) {
       return (
@@ -48,10 +45,10 @@ const Header = () => {
 
   return (
     <header className="hero-header">
-      <nav className="navbar navbar-expand-lg bg-primary border-bottom" data-bs-theme="primary">
+      <nav className="navbar navbar-expand-lg bg-primary border-bottom">
         <div className="container-fluid">
           <a className="navbar-brand fs-4" href="/" style={{ color: '#ffffff' }}>
-            JobBud 
+            JobBud
           </a>
           <button
             className="navbar-toggler"
