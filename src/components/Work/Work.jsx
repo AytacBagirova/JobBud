@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { completeWorkAction, getWorkAction, workChangeStatus } from '../../redux/actions/WorkAction';
 
 const Work = ({ job }) => {
-  const jobId = job.id
-  
+  const jobId = job.id;
+
   const [workContent, setWorkContent] = useState('');
   const userInfo = useSelector((state) => state.userLogin.userInfo);
   const dispatch = useDispatch();
@@ -15,9 +15,12 @@ const Work = ({ job }) => {
     error: workError,
     work: completeWork,
   } = useSelector((state) => state.workComplete);
-   const { loading: loadingWorkChange, error: errorWorkChange } = useSelector(
-     (state) => state.workChangeStatus
-   );
+  const { loading: loadingWorkChange, error: errorWorkChange } = useSelector(
+    (state) => state.workChangeStatus
+  );
+
+  const [confirmationMessage, setConfirmationMessage] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     dispatch(getWorkAction(jobId));
@@ -34,20 +37,46 @@ const Work = ({ job }) => {
     if (completeWork) {
       setWorkContent(completeWork.workContent);
       setWorkStatus(completeWork.status);
+      setConfirmationMessage('Work Sent To Approve');
+      setIsSuccess(true);
     }
   }, [completeWork, dispatch]);
 
   const handleWorkSubmit = () => {
-    dispatch(completeWorkAction(work.id, workContent));
+    dispatch(completeWorkAction(work.id, workContent))
+      .then(() => {
+        setConfirmationMessage('Work Submitted Successfully');
+        setIsSuccess(true);
+      })
+      .catch((error) => {
+        setConfirmationMessage(`Error: ${error.message}`);
+        setIsSuccess(false);
+      });
   };
 
-
   const handleWorkAccept = (workId) => {
-     dispatch(workChangeStatus(workId, 'APPROVED'));
-  }
+    dispatch(workChangeStatus(workId, 'APPROVED'))
+      .then(() => {
+        setConfirmationMessage('Work has been accepted successfully.');
+        setIsSuccess(true);
+      })
+      .catch((error) => {
+        setConfirmationMessage(`Error: ${error.message}`);
+        setIsSuccess(false);
+      });
+  };
+
   const handleWorkReject = (workId) => {
-     dispatch(workChangeStatus(workId, 'REJECTED'));
-  }
+    dispatch(workChangeStatus(workId, 'REJECTED'))
+      .then(() => {
+        setConfirmationMessage('Work has been rejected successfully.');
+        setIsSuccess(true);
+      })
+      .catch((error) => {
+        setConfirmationMessage(`Error: ${error.message}`);
+        setIsSuccess(false);
+      });
+  };
 
   return (
     <div>
@@ -68,9 +97,9 @@ const Work = ({ job }) => {
                 </div>
               ) : loadingWork || loadingWorkChange ? (
                 'Loading...'
-              ) : completeWork ? (
-                <div className="alert alert-success my-2" role="alert">
-                  Work Sent To Approve
+              ) : confirmationMessage ? (
+                <div className={`alert ${isSuccess ? 'alert-success' : 'alert-danger'} my-2`} role="alert">
+                  {confirmationMessage}
                 </div>
               ) : (
                 ''
@@ -134,6 +163,3 @@ const Work = ({ job }) => {
 };
 
 export default Work;
-
-
-// work accept reject edildikten sonra mesaj don
