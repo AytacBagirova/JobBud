@@ -51,7 +51,7 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg bg-primary border-bottom" data-bs-theme="primary">
         <div className="container-fluid">
           <a className="navbar-brand fs-4" href="/" style={{ color: '#ffffff' }}>
-            JobBud
+            JobBud 
           </a>
           <button
             className="navbar-toggler"

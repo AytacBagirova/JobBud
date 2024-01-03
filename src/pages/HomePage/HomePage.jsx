@@ -3,7 +3,7 @@ import './HomePage.css';
 
 const HomePage = () => (
   <Layout>
-    <h1 className="mt-4">HOMEPAGE</h1>
+    <h1 className="mt-4">🍟 HOMEPAGE 🍟</h1>
   </Layout>
 );
 

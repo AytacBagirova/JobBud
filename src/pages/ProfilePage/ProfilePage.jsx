@@ -65,7 +65,7 @@ const ProfilePage = () => {
           <div className="profile-info">
             <h3 className='text-center'>Edit Your Profile</h3>
             <div className="profile-description">
-              <h3>{userInfo?.username || 'Guest'}</h3>
+              <h3>{userInfo?.username || 'Guest'}💥</h3>
             </div>
             <label>Username</label>
             <input
